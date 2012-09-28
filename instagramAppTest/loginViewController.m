@@ -25,7 +25,7 @@ static NSString *const scope = @"basic";
 
 
 @implementation loginViewController
-@synthesize loginPage, okButton, delegate;
+@synthesize loginPage, delegate;
 @synthesize tokenStr;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -35,19 +35,6 @@ static NSString *const scope = @"basic";
         // Custom initialization
     }
     return self;
-}
-
--(IBAction)dismissSelf:(id)sender{
-    
-    [loginPage stopLoading];
-    if ([delegate respondsToSelector:@selector(loginViewController:saveToken:)]) {
-        NSString *str = (NSString *)tokenStr;
-        NSLog(@"str == %@", str);
-        [delegate loginViewController:self saveToken:str];
-        NSLog(@"delegate!!!!!");
-    }
-    [self dismissModalViewControllerAnimated:YES];
-    
 }
 
 - (void)viewDidLoad
@@ -90,10 +77,10 @@ static NSString *const scope = @"basic";
             if (endRange.location != NSNotFound)
                 token = [token substringToIndex: endRange.location];
             tokenStr = token;
-            NSLog(@"token == %@", tokenStr);
+            //NSLog(@"token == %@", tokenStr);
             
             if ([delegate respondsToSelector:@selector(loginViewController:saveToken:)] && tokenStr != nil) {
-                NSLog(@"str == %@", tokenStr);
+                NSLog(@"tokenStr == %@", tokenStr);
                 [delegate loginViewController:self saveToken:tokenStr];
                 NSLog(@"delegate!!!!!");
                 [self dismissModalViewControllerAnimated:YES];

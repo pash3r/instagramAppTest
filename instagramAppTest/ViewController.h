@@ -13,11 +13,17 @@
     
     IBOutlet UITableView *photoTable;
     IBOutlet UILabel *label;
+    IBOutlet UIButton *goButton;
+    NSString *user_token;
 }
 
 @property (retain, nonatomic) IBOutlet UITableView *photoTable;
 @property (retain, nonatomic) IBOutlet UILabel *label;
+@property (retain, nonatomic) IBOutlet UIButton *goButton;
+@property (retain, nonatomic) NSString *user_token;
 
 -(void)loginViewController:(loginViewController *)controller saveToken:(NSString *)text;
+
+-(IBAction)makeRequest:(id)sender;
 
 @end

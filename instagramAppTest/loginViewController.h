@@ -19,19 +19,15 @@
 @interface loginViewController : UIViewController <UIWebViewDelegate>{
     
     IBOutlet UIWebView *loginPage;
-    IBOutlet UIButton *okButton;
+    //IBOutlet UIButton *okButton;
     id <loginViewDelegate> delegate;
     NSString *tokenStr;
 }
 
-//@property (assign, nonatomic) ViewController *viewController;
-
 @property (strong, nonatomic) IBOutlet UIWebView *loginPage;
-@property (retain, nonatomic) IBOutlet UIButton *okButton;
+//@property (retain, nonatomic) IBOutlet UIButton *okButton;
 @property (assign, nonatomic) id <loginViewDelegate> delegate;
 @property (retain, nonatomic) NSString *tokenStr;
-
--(IBAction)dismissSelf:(id)sender;
 
 
 @end
