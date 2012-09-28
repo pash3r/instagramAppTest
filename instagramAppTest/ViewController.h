@@ -18,6 +18,6 @@
 @property (retain, nonatomic) IBOutlet UITableView *photoTable;
 @property (retain, nonatomic) IBOutlet UILabel *label;
 
--(void)loginViewController:(loginViewController *)controller changeParentLabel:(NSString *)text;
+-(void)loginViewController:(loginViewController *)controller saveToken:(NSString *)text;
 
 @end

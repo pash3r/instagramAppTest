@@ -12,7 +12,7 @@
 
 @protocol loginViewDelegate <NSObject>
 
--(void)loginViewController:(loginViewController *)controller changeParentLabel:(NSString *)text;
+-(void)loginViewController:(loginViewController *)controller saveToken:(NSString *)text;
 
 @end
 
@@ -21,7 +21,7 @@
     IBOutlet UIWebView *loginPage;
     IBOutlet UIButton *okButton;
     id <loginViewDelegate> delegate;
-    NSString *code;
+    NSString *tokenStr;
 }
 
 //@property (assign, nonatomic) ViewController *viewController;
@@ -29,7 +29,7 @@
 @property (strong, nonatomic) IBOutlet UIWebView *loginPage;
 @property (retain, nonatomic) IBOutlet UIButton *okButton;
 @property (assign, nonatomic) id <loginViewDelegate> delegate;
-@property (retain, nonatomic) NSString *code;
+@property (retain, nonatomic) NSString *tokenStr;
 
 -(IBAction)dismissSelf:(id)sender;
 

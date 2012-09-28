@@ -40,15 +40,10 @@
     
 }
 
--(void)loginViewController:(loginViewController *)controller changeParentLabel:(NSString *)text{
-    
-    NSLog(@"text == %@", text);
-    self.label.text = text;
-}
-
--(void)setLabelText:(NSString *)text{
+-(void)loginViewController:(loginViewController *)controller saveToken:(NSString *)text{
     
     self.label.text = text;
+    
 }
 
 - (void)viewDidLoad

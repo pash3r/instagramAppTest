@@ -15,8 +15,18 @@
 
 @end
 
+static NSString *const authUrlString = @"https://api.instagram.com/oauth/authorize/";
+static NSString *const tokenUrlString = @"https://api.instagram.com/oauth/access_token/";
+static NSString *const clientID = @"11fa4d658d2f449e87cd67368576d901";
+static NSString *const clientSecret = @"c8b74ecf12954616a1b508380bb7afc7";
+static NSString *const redirectUri = @"http://getresponse.com/";
+static NSString *const scope = @"basic";
+
+
+
 @implementation loginViewController
-@synthesize loginPage, okButton, delegate, code;
+@synthesize loginPage, okButton, delegate;
+@synthesize tokenStr;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,77 +39,86 @@
 
 -(IBAction)dismissSelf:(id)sender{
     
-    [self dismissModalViewControllerAnimated:YES];
-    if ([delegate respondsToSelector:@selector(loginViewController:changeParentLabel:)]) {
-        NSString *str = @"valera!!!!!!!!!";
-        [delegate loginViewController:self changeParentLabel:str];
+    [loginPage stopLoading];
+    if ([delegate respondsToSelector:@selector(loginViewController:saveToken:)]) {
+        NSString *str = (NSString *)tokenStr;
+        NSLog(@"str == %@", str);
+        [delegate loginViewController:self saveToken:str];
         NSLog(@"delegate!!!!!");
     }
-    
+    [self dismissModalViewControllerAnimated:YES];
     
 }
 
 - (void)viewDidLoad
 {
-    [loginPage loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://api.instagram.com/oauth/authorize/?client_id=11fa4d658d2f449e87cd67368576d901&redirect_uri=http://getresponse.com/&response_type=code"]]];
+    //https://api.instagram.com/oauth/authorize/?client_id=11fa4d658d2f449e87cd67368576d901&redirect_uri=http://getresponse.com/&response_type=code
+    
+    //[loginPage loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://instagram.com/oauth/authorize/?client_id=11fa4d658d2f449e87cd67368576d901&redirect_uri=http://getresponse.com/&response_type=token"]]];
         
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    
+    NSString *fullAuthUrlString = [[NSString alloc]
+                                   initWithFormat:@"%@/?client_id=%@&redirect_uri=%@&scope=%@&response_type=token&display=touch",
+                                   authUrlString,
+                                   clientID,
+                                   redirectUri,
+                                   scope
+                                   ];
+    NSURL *authUrl = [NSURL URLWithString:fullAuthUrlString];
+    NSURLRequest *myRequest = [[NSURLRequest alloc] initWithURL:authUrl];
+    //NSURLRequest *tmpReq = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://https://instagram.com/accounts/logout/"]];
+    [loginPage loadRequest:myRequest];
+    [myRequest release];
+    [fullAuthUrlString release];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     
-    NSURL *clickedURL = [request URL];
-    NSString *URLString = [clickedURL absoluteString];
-    NSArray *tmpArr = [URLString componentsSeparatedByString:@"="];
-    code = [tmpArr objectAtIndex:1];
-    NSLog(@"code: %@", code);
+    //if(navigationType == UIWebViewNavigationTypeLinkClicked){
+    NSString* urlString = [[request URL] absoluteString];
+    NSString *kRedirectUri = @"http://getresponse.com/";
     
-//    if (navigationType == UIWebViewNavigationTypeOther){
-//    
-//    NSURL *myLoadedUrl = [webView.request mainDocumentURL];
-//    NSString *URLString = [myLoadedUrl absoluteString];
-//    NSLog(@"Loaded url: %@", myLoadedUrl);
-//    NSArray *tmpArr = [URLString componentsSeparatedByString:@"="];
-//    code = [tmpArr objectAtIndex:1];
-//    NSLog(@"code == %@", code);
-//    //[loginPage stopLoading];
-//  
-//    if (navigationType == UIWebViewNavigationTypeOther){
-//    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.instagram.com/oauth/authorize/?client_id=11fa4d658d2f449e87cd67368576d901&redirect_uri=http://getresponse.com/&code="]];
-//    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
-//    
-//    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-//                            code, @"code",
-//                            nil];
-//    NSMutableURLRequest *request1 = [httpClient requestWithMethod:@"POST" path:@"https://api.instagram.com/oauth/authorize/?client_id=11fa4d658d2f449e87cd67368576d901&redirect_uri=http://getresponse.com/&code=" parameters:params];
-//    
-//    AFHTTPRequestOperation *operation = [[[AFHTTPRequestOperation alloc] initWithRequest:request1] autorelease];
-//    
-//    [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
-//    
-//    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSString *response = [operation responseString];
-//        NSLog(@"response: [%@]",response);
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"error: %@", [operation error]);
-//    }];
-//    
-//    [operation start];
-//    }
+    if ([urlString hasPrefix: kRedirectUri]) {
+        NSRange tokenParam = [urlString rangeOfString: @"access_token="];
+        if (tokenParam.location != NSNotFound) {
+            NSString* token = [urlString substringFromIndex: NSMaxRange(tokenParam)];
+            // If there are more args, don't include them in the token:
+            NSRange endRange = [token rangeOfString: @"&"];
+            if (endRange.location != NSNotFound)
+                token = [token substringToIndex: endRange.location];
+            tokenStr = token;
+            NSLog(@"token == %@", tokenStr);
+            
+            if ([delegate respondsToSelector:@selector(loginViewController:saveToken:)] && tokenStr != nil) {
+                NSLog(@"str == %@", tokenStr);
+                [delegate loginViewController:self saveToken:tokenStr];
+                NSLog(@"delegate!!!!!");
+                [self dismissModalViewControllerAnimated:YES];
+                }
+        }
+        }
+    //}
+    
     return YES;
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView{  
+-(void)webViewDidFinishLoad:(UIWebView *)webView{
     
+    //[self dismissModalViewControllerAnimated:YES];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:animated];
 }
 
 - (void)viewDidUnload
 {
-    
-    
-    
     loginPage = nil;
+    tokenStr = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -108,6 +127,7 @@
 -(void)dealloc{
     
     [loginPage release];
+    [tokenStr release];
     [super dealloc];
 }
 
