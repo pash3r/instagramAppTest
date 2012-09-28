@@ -7,7 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "loginViewController.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <UITableViewDelegate>{
+    
+    IBOutlet UITableView *photoTable;
+    IBOutlet UILabel *label;
+}
+
+@property (retain, nonatomic) IBOutlet UITableView *photoTable;
+@property (retain, nonatomic) IBOutlet UILabel *label;
+
+-(void)loginViewController:(loginViewController *)controller changeParentLabel:(NSString *)text;
 
 @end
