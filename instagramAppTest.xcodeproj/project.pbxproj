@@ -10,6 +10,7 @@
 		BA1629F6161472DF00CFC84D /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = BA1629F5161472DF00CFC84D /* JSONKit.m */; };
 		BA1629FB1614735300CFC84D /* loginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA1629F91614735300CFC84D /* loginViewController.m */; };
 		BA1629FC1614735300CFC84D /* loginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA1629FA1614735300CFC84D /* loginViewController.xib */; };
+		BA16B1AD161744C300F8D733 /* InstaPost.m in Sources */ = {isa = PBXBuildFile; fileRef = BA16B1AC161744C300F8D733 /* InstaPost.m */; };
 		BA96081216134BC700C6751B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA96081116134BC700C6751B /* UIKit.framework */; };
 		BA96081416134BC700C6751B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA96081316134BC700C6751B /* Foundation.framework */; };
 		BA96081616134BC700C6751B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA96081516134BC700C6751B /* CoreGraphics.framework */; };
@@ -20,15 +21,15 @@
 		BA96082816134BC800C6751B /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA96082616134BC800C6751B /* ViewController.xib */; };
 		BA960831161356FE00C6751B /* detailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA96082F161356FE00C6751B /* detailViewController.m */; };
 		BA960832161356FE00C6751B /* detailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA960830161356FE00C6751B /* detailViewController.xib */; };
-		BA96084716135AB800C6751B /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = BA96083516135AB700C6751B /* AFHTTPClient.m */; };
-		BA96084816135AB800C6751B /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BA96083716135AB700C6751B /* AFHTTPRequestOperation.m */; };
-		BA96084916135AB800C6751B /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BA96083916135AB700C6751B /* AFImageRequestOperation.m */; };
-		BA96084A16135AB800C6751B /* AFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BA96083B16135AB700C6751B /* AFJSONRequestOperation.m */; };
-		BA96084B16135AB800C6751B /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA96083D16135AB700C6751B /* AFNetworkActivityIndicatorManager.m */; };
-		BA96084C16135AB800C6751B /* AFPropertyListRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BA96084016135AB700C6751B /* AFPropertyListRequestOperation.m */; };
-		BA96084D16135AB800C6751B /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BA96084216135AB700C6751B /* AFURLConnectionOperation.m */; };
-		BA96084E16135AB800C6751B /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BA96084416135AB700C6751B /* AFXMLRequestOperation.m */; };
-		BA96084F16135AB800C6751B /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = BA96084616135AB700C6751B /* UIImageView+AFNetworking.m */; };
+		BA96084716135AB800C6751B /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = BA96083516135AB700C6751B /* AFHTTPClient.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		BA96084816135AB800C6751B /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BA96083716135AB700C6751B /* AFHTTPRequestOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		BA96084916135AB800C6751B /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BA96083916135AB700C6751B /* AFImageRequestOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		BA96084A16135AB800C6751B /* AFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BA96083B16135AB700C6751B /* AFJSONRequestOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		BA96084B16135AB800C6751B /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BA96083D16135AB700C6751B /* AFNetworkActivityIndicatorManager.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		BA96084C16135AB800C6751B /* AFPropertyListRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BA96084016135AB700C6751B /* AFPropertyListRequestOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		BA96084D16135AB800C6751B /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BA96084216135AB700C6751B /* AFURLConnectionOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		BA96084E16135AB800C6751B /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BA96084416135AB700C6751B /* AFXMLRequestOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		BA96084F16135AB800C6751B /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = BA96084616135AB700C6751B /* UIImageView+AFNetworking.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,8 @@
 		BA1629F81614735300CFC84D /* loginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = loginViewController.h; sourceTree = "<group>"; };
 		BA1629F91614735300CFC84D /* loginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = loginViewController.m; sourceTree = "<group>"; };
 		BA1629FA1614735300CFC84D /* loginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = loginViewController.xib; sourceTree = "<group>"; };
+		BA16B1AB161744C300F8D733 /* InstaPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstaPost.h; sourceTree = "<group>"; };
+		BA16B1AC161744C300F8D733 /* InstaPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstaPost.m; sourceTree = "<group>"; };
 		BA96080D16134BC700C6751B /* instagramAppTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = instagramAppTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA96081116134BC700C6751B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BA96081316134BC700C6751B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -134,6 +137,8 @@
 				BA1629FA1614735300CFC84D /* loginViewController.xib */,
 				BA96082316134BC800C6751B /* ViewController.h */,
 				BA96082416134BC800C6751B /* ViewController.m */,
+				BA16B1AB161744C300F8D733 /* InstaPost.h */,
+				BA16B1AC161744C300F8D733 /* InstaPost.m */,
 				BA96082616134BC800C6751B /* ViewController.xib */,
 				BA96082E161356FE00C6751B /* detailViewController.h */,
 				BA96082F161356FE00C6751B /* detailViewController.m */,
@@ -262,6 +267,7 @@
 				BA96084F16135AB800C6751B /* UIImageView+AFNetworking.m in Sources */,
 				BA1629F6161472DF00CFC84D /* JSONKit.m in Sources */,
 				BA1629FB1614735300CFC84D /* loginViewController.m in Sources */,
+				BA16B1AD161744C300F8D733 /* InstaPost.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,7 +9,8 @@
 #import "ViewController.h"
 #import "loginViewController.h"
 #import "AFHTTPClient.h"
-#import "AFHTTPRequestOperation.h"
+#import "AFJSONRequestOperation.h"
+#import "JSONKit.h"
 
 @interface ViewController ()
 
@@ -20,6 +21,7 @@
 @synthesize label = _label;
 @synthesize goButton;
 @synthesize user_token;
+@synthesize jsonDict;
 
 -(IBAction)makeRequest:(id)sender{
     
@@ -38,24 +40,43 @@
 //        NSLog(@"failure");
 //    }];    
 //    //call start on your request operation
-    NSURL *baseURL = [NSURL URLWithString:@"http://api.instagram.com/"];
+    NSURL *baseURL = [NSURL URLWithString:@"https://api.instagram.com/"];
     
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:baseURL];
-    [httpClient defaultValueForHeader:@"Accept"];
+    //[httpClient setDefaultHeader:@"Accept" value:@"text/json"];
     
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             user_token, @"access_token",
                             nil];
+    //NSLog(@"params == %@", params);
     
-    [httpClient postPath:@"/feed" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        // reponseObject will hold the data returned by the server.
-        NSLog(@"data: %@", responseObject);
-    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error retrieving data: %@", error);
+    NSURLRequest *request = [httpClient requestWithMethod:@"GET"
+                                                 path:@"/v1/users/self/feed"
+                                           parameters:params];
+    //NSLog(@"request == %@", request);
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+     success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON)
+    {
+        //NSLog(@"response == %@", JSON);
+        NSLog(@"%@", [JSON objectForKey:@"data"]);
+    }
+     failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON)
+    {
+        // 
+        NSLog(@"error: %d", [response statusCode]);
+        NSLog(@"request == %@\n error == %@", request, error);
+        NSLog(@"fail");
     }];
     
+    // you can either start your operation like this 
+    [operation start];    
 
     NSLog(@"click!!");
+}
+
+-(void)parseJSON:(NSArray *)json{
+    
+    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

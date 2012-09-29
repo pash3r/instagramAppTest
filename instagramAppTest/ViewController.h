@@ -15,15 +15,18 @@
     IBOutlet UILabel *label;
     IBOutlet UIButton *goButton;
     NSString *user_token;
+    NSArray *jsonDict;
 }
 
 @property (retain, nonatomic) IBOutlet UITableView *photoTable;
 @property (retain, nonatomic) IBOutlet UILabel *label;
 @property (retain, nonatomic) IBOutlet UIButton *goButton;
 @property (retain, nonatomic) NSString *user_token;
+@property (retain, nonatomic) NSArray *jsonDict;
 
 -(void)loginViewController:(loginViewController *)controller saveToken:(NSString *)text;
 
 -(IBAction)makeRequest:(id)sender;
+-(void)parseJSON:(NSArray *)json;
 
 @end
