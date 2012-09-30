@@ -11,6 +11,8 @@
 #import "AFHTTPClient.h"
 #import "AFJSONRequestOperation.h"
 #import "JSONKit.h"
+#import "InstaPost.h"
+#import "AFImageRequestOperation.h"
 
 @interface ViewController ()
 
@@ -22,6 +24,7 @@
 @synthesize goButton;
 @synthesize user_token;
 @synthesize jsonDict;
+@synthesize tableData = _tableData;
 
 -(IBAction)makeRequest:(id)sender{
     
@@ -58,7 +61,41 @@
      success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON)
     {
         //NSLog(@"response == %@", JSON);
-        NSLog(@"%@", [JSON objectForKey:@"data"]);
+        //NSLog(@"%@", [JSON objectForKey:@"data"]);
+        
+        NSMutableArray *photosArray = [[NSMutableArray alloc] init];
+        NSArray *photos = [JSON objectForKey:@"data"];
+        //NSLog(@"count == %@", [photos objectAtIndex:17]);
+        NSLog(@"photos: %@", [photos objectAtIndex:5]);
+//        NSDictionary *photo = [photos objectAtIndex:2];
+//        NSDictionary *images = [photo objectForKey:@"images"];
+//        NSDictionary *standart = [images objectForKey:@"standard_resolution"];
+//        NSLog(@"%@", [standart objectForKey:@"url"]);
+        
+        for (int i = 0; i <= 16; i++){
+            InstaPost *post = [[InstaPost alloc] init];
+            NSDictionary *photoData = [photos objectAtIndex:i];
+            NSDictionary *user = [photoData objectForKey:@"user"];
+            post.author = [user objectForKey:@"full_name"];
+            post.profilePicture = [user objectForKey:@"profile_picture"];
+//            if ([photoData objectForKey:@"caption"] != nil){
+//                NSDictionary *caption = [photoData objectForKey:@"caption"];
+//                if ([caption objectForKey:@"text"] != nil){
+//                    post.photoName = [caption objectForKey:@"text"];
+//                }
+//            }
+            //NSLog(@"name: %@\n picture: %@", post.author, post.profilePicture);
+            NSDictionary *images = [photoData objectForKey:@"images"];
+            NSDictionary *lowResolution = [images objectForKey:@"low_resolution"];
+            post.lowRes = [lowResolution objectForKey:@"url"];
+            NSDictionary *standartRes = [images objectForKey:@"standard_resolution"];
+            post.hiRes = [standartRes objectForKey:@"url"];
+            NSDictionary *likes = [photoData objectForKey:@"likes"];
+            post.likesCount = [likes objectForKey:@"count"];
+            NSLog(@"post: %@\n, %@\n, %@\n, %@\n, %@\n", post.author, post.profilePicture, post.lowRes, post.hiRes, post.likesCount);
+            [photosArray addObject:post];
+        }
+        self.tableData = photosArray;
     }
      failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON)
     {
@@ -84,7 +121,12 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    return [self.tableData count];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return 500;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -93,9 +135,16 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        
+        UILabel *userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 311, 150, 20)];
     }
     // Configure the cell...
-    cell.textLabel.text = @"test";
+    InstaPost *postt = (InstaPost *)[self.tableData objectAtIndex:indexPath.row];
+    UIImageView *photoView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 0, 306, 306)];
+    [cell addSubview:photoView];
+    
+    photoView = [];    
+    //cell.textLabel.text = @"test";
     
     return cell;
     

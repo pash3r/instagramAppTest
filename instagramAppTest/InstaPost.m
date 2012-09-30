@@ -9,5 +9,18 @@
 #import "InstaPost.h"
 
 @implementation InstaPost
+@synthesize author, profilePicture, photoName, lowRes, hiRes, likesCount;
+
+-(void)dealloc{
+    
+    [author release];
+    [profilePicture release];
+    [photoName release];
+    [lowRes release];
+    [hiRes release];
+    //[locationName release];
+    [likesCount release];
+    [super dealloc];
+}
 
 @end

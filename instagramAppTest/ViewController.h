@@ -16,6 +16,7 @@
     IBOutlet UIButton *goButton;
     NSString *user_token;
     NSArray *jsonDict;
+    NSArray *tableData;
 }
 
 @property (retain, nonatomic) IBOutlet UITableView *photoTable;
@@ -23,6 +24,7 @@
 @property (retain, nonatomic) IBOutlet UIButton *goButton;
 @property (retain, nonatomic) NSString *user_token;
 @property (retain, nonatomic) NSArray *jsonDict;
+@property (retain, nonatomic) NSArray *tableData;
 
 -(void)loginViewController:(loginViewController *)controller saveToken:(NSString *)text;
 
