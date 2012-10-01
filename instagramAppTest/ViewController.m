@@ -13,6 +13,7 @@
 #import "JSONKit.h"
 #import "InstaPost.h"
 #import "AFImageRequestOperation.h"
+#import "detailViewController.h"
 
 @interface ViewController ()
 
@@ -20,38 +21,23 @@
 
 @implementation ViewController
 @synthesize photoTable = _photoTable;
-@synthesize label = _label;
+//@synthesize label = _label;
 @synthesize goButton;
-@synthesize user_token;
-@synthesize jsonDict;
+@synthesize userToken = _userToken;
 @synthesize tableData = _tableData;
 
--(IBAction)makeRequest:(id)sender{
+-(void)reloadPosts{
     
-//    NSURL *url = [NSURL URLWithString:@"http://api.instagram.com/v1/users/self/"];
-//    AFHTTPClient *client = [[AFHTTPClient alloc]initWithBaseURL:url];
-//    
-//    //depending on what kind of response you expect.. change it if you expect XML 
-//    //[client registerHTTPOperationClass:[AFJSONRequestOperation class]];
-//    
-//    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:
-//                            user_token, @"access_token", 
-//                            nil];
-//    [client putPath:@"/feed" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"success");
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"failure");
-//    }];    
-//    //call start on your request operation
     NSURL *baseURL = [NSURL URLWithString:@"https://api.instagram.com/"];
     
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:baseURL];
     //[httpClient setDefaultHeader:@"Accept" value:@"text/json"];
+    //NSLog(@"client: %@", httpClient);
     
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            user_token, @"access_token",
+                            self.userToken, @"access_token",
                             nil];
-    //NSLog(@"params == %@", params);
+    //NSLog(@"params: %@", params);
     
     NSURLRequest *request = [httpClient requestWithMethod:@"GET"
                                                  path:@"/v1/users/self/feed"
@@ -72,7 +58,7 @@
 //        NSDictionary *standart = [images objectForKey:@"standard_resolution"];
 //        NSLog(@"%@", [standart objectForKey:@"url"]);
         
-        for (int i = 0; i <= 16; i++){
+        for (int i = 0; i <= [photos count] - 1; i++){
             InstaPost *post = [[InstaPost alloc] init];
             NSDictionary *photoData = [photos objectAtIndex:i];
             NSDictionary *user = [photoData objectForKey:@"user"];
@@ -105,13 +91,11 @@
     }
      failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON)
     {
-        // 
         NSLog(@"error: %d", [response statusCode]);
         NSLog(@"request == %@\n error == %@", request, error);
         NSLog(@"fail");
     }];
-    
-    // you can either start your operation like this 
+
     [operation start];    
 
     NSLog(@"click!!");
@@ -128,7 +112,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 200;
+    return 160;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -137,12 +121,13 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         //UILabel *userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 311, 150, 20)];
     }
     // Configure the cell...
     InstaPost *postt = (InstaPost *)[self.tableData objectAtIndex:indexPath.row];
-    UIImageView *photoView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 150, 150)];
+    UIImageView *photoView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 5, 150, 150)];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:postt.miniImage]];
     
@@ -160,24 +145,24 @@
     
     [cell addSubview:photoView];
     
-    UILabel *authorLabel = [[UILabel alloc] initWithFrame:CGRectMake(175, 5, 100, 15)];
+    UILabel *authorLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 5, 100, 15)];
     [authorLabel setFont:[UIFont fontWithName:@"Helvetica" size:12]];
     authorLabel.text = postt.author;
     [cell addSubview:authorLabel];
     
-    UILabel *likesCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(175, 40, 100, 15)];
+    UILabel *likesCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 40, 100, 15)];
     [likesCountLabel setFont:[UIFont fontWithName:@"Helvetica" size:12]];
-    NSNumber *number = [postt.likes objectForKey:@"count"];
-    if (!number){
+    if ([postt.likes objectForKey:@"count"] != 0){
+        NSNumber *number = [postt.likes objectForKey:@"count"];
         NSString *likesString = [NSString stringWithFormat:@"Likes: %@", number];
         likesCountLabel.text = likesString;
         [cell addSubview:likesCountLabel];
     }
     //[likesString release];
     
-    UILabel *commentsCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(175, 60, 100, 15)];
+    UILabel *commentsCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 60, 100, 15)];
     [commentsCountLabel setFont:[UIFont fontWithName:@"Helvetica" size:12]];
-    if (![[postt.comments objectForKey:@"count"] isEqual:[NSNull null]]){
+    if ([postt.comments objectForKey:@"count"] != 0){
         NSNumber *number1 = [postt.comments objectForKey:@"count"];
         NSString *commentsString = [NSString stringWithFormat:@"Comments: %@", number1];
         commentsCountLabel.text = commentsString;
@@ -197,28 +182,62 @@
     
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if ([self.tableData count] != 0){
+        detailViewController *detailView = [[detailViewController alloc] initWithNibName:@"detailViewController" bundle:nil];
+    
+        InstaPost *currentPost = (InstaPost *)[self.tableData objectAtIndex:indexPath.row];
+        detailView.choosenPost = currentPost;
+    
+        [self.navigationController pushViewController:detailView animated:YES];
+        [detailView release];
+        NSLog(@"height: %f", self.photoTable.frame.size.height);
+
+    }
+}
+
 -(void)loginViewController:(loginViewController *)controller saveToken:(NSString *)text{
     
-    self.label.text = text;
-    user_token = text;
+    //self.label.text = text;
+    self.userToken = text;
+    NSLog(@"token: %@", self.userToken);
 }
 
 - (void)viewDidLoad
 {
-    if (user_token == nil){
+    i = 0;
+    
+    if (self.userToken == nil){
         loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
         [loginVC setDelegate:self];
         [self presentModalViewController:loginVC animated:YES];
     }
+        
+    self.navigationItem.title = @"My feed";
+    
+    UIBarButtonItem *reloadButton = [[UIBarButtonItem alloc] initWithTitle:@"Reload" style:UIBarButtonSystemItemRefresh target:self action:@selector(reloadPosts)];
+    [self.navigationItem setRightBarButtonItem:reloadButton];
+    [reloadButton release];
     
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    
+    if (self.userToken != nil && i == 0){
+        [self reloadPosts];
+        i++;
+    }
+    [super viewWillAppear:animated];
+}
+
 - (void)viewDidUnload
 {
     _photoTable = nil;
-    user_token = nil;
+    _userToken = nil;
+    _tableData = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -226,7 +245,8 @@
 -(void)dealloc{
     
     [_photoTable release];
-    [user_token release];
+    [_userToken release];
+    [_tableData release];
     [super dealloc];
 }
 

@@ -80,7 +80,7 @@ static NSString *const scope = @"basic";
             //NSLog(@"token == %@", tokenStr);
             
             if ([delegate respondsToSelector:@selector(loginViewController:saveToken:)] && tokenStr != nil) {
-                NSLog(@"tokenStr == %@", tokenStr);
+                //NSLog(@"tokenStr == %@", tokenStr);
                 [delegate loginViewController:self saveToken:tokenStr];
                 NSLog(@"delegate!!!!!");
                 [self dismissModalViewControllerAnimated:YES];

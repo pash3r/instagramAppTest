@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ViewController.h"
+#import "InstaPost.h"
 
-@interface detailViewController : UIViewController
+@interface detailViewController : UIViewController <UIScrollViewDelegate>{
+    
+    IBOutlet UIScrollView *scroll;
+    InstaPost *choosenPost;
+}
+
+@property (retain, nonatomic) IBOutlet UIScrollView *scroll;
+@property (retain, nonatomic) InstaPost *choosenPost;
 
 @end
