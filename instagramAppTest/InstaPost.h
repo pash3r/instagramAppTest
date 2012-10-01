@@ -13,18 +13,20 @@
     NSString *author;
     NSString *profilePicture;
     NSString *photoName;
-    NSString *lowRes;
-    NSString *hiRes;
-    //NSString *locationName;
-    NSString *likesCount;
+    NSString *miniImage;
+    NSString *maxiImage;
+    NSString *locationName;
+    NSDictionary *likes;
+    NSDictionary *comments;
 }
 
 @property (retain, nonatomic) NSString *author;
 @property (retain, nonatomic) NSString *profilePicture;
 @property (retain, nonatomic) NSString *photoName;
-@property (retain, nonatomic) NSString *lowRes;
-@property (retain, nonatomic) NSString *hiRes;
-//@property (retain, nonatomic) NSString *locationName;
-@property (retain, nonatomic) NSString *likesCount;
+@property (retain, nonatomic) NSString *miniImage;
+@property (retain, nonatomic) NSString *maxiImage;
+@property (retain, nonatomic) NSString *locationName;
+@property (retain, nonatomic) NSDictionary *likes;
+@property (retain, nonatomic) NSDictionary *comments;
 
 @end

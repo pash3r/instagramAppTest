@@ -66,7 +66,7 @@
         NSMutableArray *photosArray = [[NSMutableArray alloc] init];
         NSArray *photos = [JSON objectForKey:@"data"];
         //NSLog(@"count == %@", [photos objectAtIndex:17]);
-        NSLog(@"photos: %@", [photos objectAtIndex:5]);
+        //NSLog(@"photos: %@", photos);
 //        NSDictionary *photo = [photos objectAtIndex:2];
 //        NSDictionary *images = [photo objectForKey:@"images"];
 //        NSDictionary *standart = [images objectForKey:@"standard_resolution"];
@@ -78,24 +78,30 @@
             NSDictionary *user = [photoData objectForKey:@"user"];
             post.author = [user objectForKey:@"full_name"];
             post.profilePicture = [user objectForKey:@"profile_picture"];
-//            if ([photoData objectForKey:@"caption"] != nil){
-//                NSDictionary *caption = [photoData objectForKey:@"caption"];
-//                if ([caption objectForKey:@"text"] != nil){
-//                    post.photoName = [caption objectForKey:@"text"];
-//                }
-//            }
-            //NSLog(@"name: %@\n picture: %@", post.author, post.profilePicture);
+            if (![[photoData objectForKey:@"caption"] isEqual:[NSNull null]]){
+                NSDictionary *caption = [photoData objectForKey:@"caption"];
+                if (![[caption objectForKey:@"text"] isEqual:[NSNull null]]){
+                    post.photoName = [caption objectForKey:@"text"];
+                }
+            }
             NSDictionary *images = [photoData objectForKey:@"images"];
-            NSDictionary *lowResolution = [images objectForKey:@"low_resolution"];
-            post.lowRes = [lowResolution objectForKey:@"url"];
+            NSDictionary *thumbnail = [images objectForKey:@"thumbnail"];
+            post.miniImage = [thumbnail objectForKey:@"url"];
             NSDictionary *standartRes = [images objectForKey:@"standard_resolution"];
-            post.hiRes = [standartRes objectForKey:@"url"];
-            NSDictionary *likes = [photoData objectForKey:@"likes"];
-            post.likesCount = [likes objectForKey:@"count"];
-            NSLog(@"post: %@\n, %@\n, %@\n, %@\n, %@\n", post.author, post.profilePicture, post.lowRes, post.hiRes, post.likesCount);
+            post.maxiImage = [standartRes objectForKey:@"url"];
+            if (![[photoData objectForKey:@"location"] isEqual:[NSNull null]]){
+                NSDictionary *location = [photoData objectForKey:@"location"];
+                if (![[location objectForKey:@"name"] isEqual:[NSNull null]]){
+                    post.locationName = [location objectForKey:@"name"];
+                }
+            }
+            post.likes = [photoData objectForKey:@"likes"];
+            post.comments = [photoData objectForKey:@"comments"];
+            //NSLog(@"post: %@\n, %@\n, %@\n, %@\n, %@\n", post.author, post.profilePicture, post.miniImage, post.maxiImage, post.locationName);
             [photosArray addObject:post];
         }
         self.tableData = photosArray;
+        [self.photoTable reloadData];
     }
      failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON)
     {
@@ -111,22 +117,18 @@
     NSLog(@"click!!");
 }
 
--(void)parseJSON:(NSArray *)json{
-    
-    
-}
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.tableData count];
+    //return [self.tableData count];
+    return 5;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 500;
+    return 200;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -136,15 +138,60 @@
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
         
-        UILabel *userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 311, 150, 20)];
+        //UILabel *userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 311, 150, 20)];
     }
     // Configure the cell...
     InstaPost *postt = (InstaPost *)[self.tableData objectAtIndex:indexPath.row];
-    UIImageView *photoView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 0, 306, 306)];
+    UIImageView *photoView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 150, 150)];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:postt.miniImage]];
+    
+    AFImageRequestOperation *imageRequest = [AFImageRequestOperation imageRequestOperationWithRequest:request imageProcessingBlock:^UIImage *(UIImage *image){
+        return image;
+    }success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image){
+        [photoView setImage:image];
+    }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+        NSLog(@"Error getting photo");
+    }];
+    
+    if (self.tableData != nil){
+        [imageRequest start];
+        }
+    
     [cell addSubview:photoView];
     
-    photoView = [];    
+    UILabel *authorLabel = [[UILabel alloc] initWithFrame:CGRectMake(175, 5, 100, 15)];
+    [authorLabel setFont:[UIFont fontWithName:@"Helvetica" size:12]];
+    authorLabel.text = postt.author;
+    [cell addSubview:authorLabel];
+    
+    UILabel *likesCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(175, 40, 100, 15)];
+    [likesCountLabel setFont:[UIFont fontWithName:@"Helvetica" size:12]];
+    NSNumber *number = [postt.likes objectForKey:@"count"];
+    if (!number){
+        NSString *likesString = [NSString stringWithFormat:@"Likes: %@", number];
+        likesCountLabel.text = likesString;
+        [cell addSubview:likesCountLabel];
+    }
+    //[likesString release];
+    
+    UILabel *commentsCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(175, 60, 100, 15)];
+    [commentsCountLabel setFont:[UIFont fontWithName:@"Helvetica" size:12]];
+    if (![[postt.comments objectForKey:@"count"] isEqual:[NSNull null]]){
+        NSNumber *number1 = [postt.comments objectForKey:@"count"];
+        NSString *commentsString = [NSString stringWithFormat:@"Comments: %@", number1];
+        commentsCountLabel.text = commentsString;
+        [cell addSubview:commentsCountLabel];
+    }
+    //[commentsString release];
+
+        
     //cell.textLabel.text = @"test";
+    
+    [photoView release];
+    [authorLabel release];
+    [likesCountLabel release];
+    //[commentsCountLabel release];
     
     return cell;
     
@@ -171,6 +218,7 @@
 - (void)viewDidUnload
 {
     _photoTable = nil;
+    user_token = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -178,6 +226,7 @@
 -(void)dealloc{
     
     [_photoTable release];
+    [user_token release];
     [super dealloc];
 }
 
