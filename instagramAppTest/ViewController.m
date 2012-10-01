@@ -107,8 +107,8 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //return [self.tableData count];
-    return 5;
+    return [self.tableData count];
+    //return 5;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -238,7 +238,7 @@
     if ([self.userToken length] != 0 && i == 0){
         [self reloadPosts];
         i++;
-    } else [self.photoTable reloadData];
+    } //else [self.photoTable reloadData];
     [super viewWillAppear:animated];
 }
 
