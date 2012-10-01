@@ -14,9 +14,16 @@
     
     IBOutlet UIScrollView *scroll;
     InstaPost *choosenPost;
+    UILabel *location;
+    NSString *token;
 }
 
 @property (retain, nonatomic) IBOutlet UIScrollView *scroll;
 @property (retain, nonatomic) InstaPost *choosenPost;
+@property (retain, nonatomic) UILabel *location;
+@property (retain, nonatomic) NSString *token;
+
+-(void)setLike;
+-(void)setDislike;
 
 @end

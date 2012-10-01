@@ -22,7 +22,7 @@
 @implementation ViewController
 @synthesize photoTable = _photoTable;
 //@synthesize label = _label;
-@synthesize goButton;
+//@synthesize goButton;
 @synthesize userToken = _userToken;
 @synthesize tableData = _tableData;
 
@@ -58,9 +58,9 @@
 //        NSDictionary *standart = [images objectForKey:@"standard_resolution"];
 //        NSLog(@"%@", [standart objectForKey:@"url"]);
         
-        for (int i = 0; i <= [photos count] - 1; i++){
+        for (int j = 0; j <= [photos count] - 1; j++){
             InstaPost *post = [[InstaPost alloc] init];
-            NSDictionary *photoData = [photos objectAtIndex:i];
+            NSDictionary *photoData = [photos objectAtIndex:j];
             NSDictionary *user = [photoData objectForKey:@"user"];
             post.author = [user objectForKey:@"full_name"];
             post.profilePicture = [user objectForKey:@"profile_picture"];
@@ -83,6 +83,7 @@
             }
             post.likes = [photoData objectForKey:@"likes"];
             post.comments = [photoData objectForKey:@"comments"];
+            post.mediaID = [photoData objectForKey:@"id"];
             //NSLog(@"post: %@\n, %@\n, %@\n, %@\n, %@\n", post.author, post.profilePicture, post.miniImage, post.maxiImage, post.locationName);
             [photosArray addObject:post];
         }
@@ -189,6 +190,7 @@
     
         InstaPost *currentPost = (InstaPost *)[self.tableData objectAtIndex:indexPath.row];
         detailView.choosenPost = currentPost;
+        detailView.token = self.userToken;
     
         [self.navigationController pushViewController:detailView animated:YES];
         [detailView release];
@@ -204,17 +206,24 @@
     NSLog(@"token: %@", self.userToken);
 }
 
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+}
+
 - (void)viewDidLoad
 {
     i = 0;
     
-    if (self.userToken == nil){
+    if ([self.userToken length] == 0){
         loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
         [loginVC setDelegate:self];
         [self presentModalViewController:loginVC animated:YES];
     }
-        
+    //NSLog(@"length: %u", [self.userToken length]);    
     self.navigationItem.title = @"My feed";
+    
+    
     
     UIBarButtonItem *reloadButton = [[UIBarButtonItem alloc] initWithTitle:@"Reload" style:UIBarButtonSystemItemRefresh target:self action:@selector(reloadPosts)];
     [self.navigationItem setRightBarButtonItem:reloadButton];
@@ -226,10 +235,10 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
-    if (self.userToken != nil && i == 0){
+    if ([self.userToken length] != 0 && i == 0){
         [self reloadPosts];
         i++;
-    }
+    } else [self.photoTable reloadData];
     [super viewWillAppear:animated];
 }
 

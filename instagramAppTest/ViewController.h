@@ -13,7 +13,7 @@
     
     IBOutlet UITableView *photoTable;
     //IBOutlet UILabel *label;
-    IBOutlet UIButton *goButton;
+    //IBOutlet UIButton *goButton;
     NSString *userToken;
     NSArray *tableData;
     int i;
@@ -21,7 +21,7 @@
 
 @property (retain, nonatomic) IBOutlet UITableView *photoTable;
 //@property (retain, nonatomic) IBOutlet UILabel *label;
-@property (retain, nonatomic) IBOutlet UIButton *goButton;
+//@property (retain, nonatomic) IBOutlet UIButton *goButton;
 @property (retain, nonatomic) NSString *userToken;
 @property (retain, nonatomic) NSArray *tableData;
 

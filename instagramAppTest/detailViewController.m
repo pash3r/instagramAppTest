@@ -8,6 +8,8 @@
 
 #import "detailViewController.h"
 #import "AFImageRequestOperation.h"
+#import "AFHTTPClient.h"
+#import "AFHTTPRequestOperation.h"
 
 @interface detailViewController ()
 
@@ -16,6 +18,8 @@
 @implementation detailViewController
 @synthesize scroll = _scroll;
 @synthesize choosenPost;
+@synthesize location;
+@synthesize token;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -63,7 +67,8 @@
     [self.scroll addSubview:photo];
     
     if ([choosenPost.locationName length] != 0){
-        UILabel *location = [[UILabel alloc] initWithFrame:CGRectMake(7, 340, 220, 50)];
+        location = [[UILabel alloc] init];
+        [location setFrame:CGRectMake(7, 340, 220, 50)];
         [location setFont:[UIFont fontWithName:@"Helvetica" size:11]];
         [location setNumberOfLines:4];
         [location setLineBreakMode:UILineBreakModeClip];
@@ -71,6 +76,49 @@
         [self.scroll addSubview:location];
         [location release];
     }
+    
+    if (![[choosenPost.likes objectForKey:@"count"] isEqual:[NSNull null]]){
+        //NSLog(@"%@", [choosenPost.likes objectForKey:@"data"]);
+        NSMutableArray *likedUsersArr = [[NSMutableArray alloc] init];
+        for (NSDictionary *person in [choosenPost.likes objectForKey:@"data"]){
+            NSString *name = [person objectForKey:@"username"];
+            [likedUsersArr addObject:name];
+        }
+        //NSLog(@"liked: %@", [likedUsersArr componentsJoinedByString:@", "]);
+        if (location){
+            UILabel *likedPeople = [[UILabel alloc] initWithFrame:CGRectMake(7, 385, 300, 28)];
+            [likedPeople setFont:[UIFont fontWithName:@"Helvetica" size:12]];
+            [likedPeople setNumberOfLines:3];
+            [likedPeople setLineBreakMode:UILineBreakModeClip];
+            NSString *likedUsersStr = [likedUsersArr componentsJoinedByString:@", "];
+            likedPeople.text = [NSString stringWithFormat:@"Liked: %@", likedUsersStr];
+            [self.scroll addSubview:likedPeople];
+            [likedPeople release];
+        }else {
+            UILabel *likedPeople = [[UILabel alloc] initWithFrame:CGRectMake(7, 345, 300, 28)];
+            [likedPeople setFont:[UIFont fontWithName:@"Helvetica" size:12]];
+            [likedPeople setNumberOfLines:3];
+            [likedPeople setLineBreakMode:UILineBreakModeClip];
+            NSString *likedUsersStr = [likedUsersArr componentsJoinedByString:@", "];
+            likedPeople.text = [NSString stringWithFormat:@"Liked: %@", likedUsersStr];
+            [self.scroll addSubview:likedPeople];
+            [likedPeople release];
+        }
+    }
+    
+//    if (![[choosenPost.comments objectForKey:@"count"] isEqual:[NSNull null]]){
+//        
+//    }
+    
+    UIBarButtonItem *likeButton = [[UIBarButtonItem alloc] initWithTitle:@"Like" style:UIBarButtonItemStyleBordered target:self action:@selector(setLike)];
+    self.navigationItem.rightBarButtonItem = likeButton;
+    UIBarButtonItem *dislikeButton = [[UIBarButtonItem alloc] initWithTitle:@"Don't like" style:UIBarButtonItemStyleBordered target:self action:@selector(setDislike)];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:likeButton, dislikeButton, nil];
+    
+    [likeButton release];
+    [dislikeButton release];
+    
+    //NSLog(@"id: %@", choosenPost.mediaID);
     
     [photo release];
     [avatar release];
@@ -80,10 +128,59 @@
     // Do any additional setup after loading the view from its nib.
 }
 
+-(void)setLike{
+    
+    NSString *urlString = [NSString stringWithFormat:@"/v1/media/%@/likes", choosenPost.mediaID];
+    NSURL *baseURL = [NSURL URLWithString:@"https://api.instagram.com"];
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:baseURL];
+    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:token, @"access_token", nil];
+    NSURLRequest *setLike = [httpClient requestWithMethod:@"POST" path:urlString parameters:parameters];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:setLike];
+    
+    [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString *response = [operation responseString];
+        //NSLog(@"response: [%@]",response);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"error: %@", [operation error]);
+    }];
+    [operation start];
+    [operation release];
+}
+
+-(void)setDislike{
+    
+    NSString *urlString = [NSString stringWithFormat:@"/v1/media/%@/likes", choosenPost.mediaID];
+    NSURL *baseURL = [NSURL URLWithString:@"https://api.instagram.com"];
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:baseURL];
+    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:token, @"access_token", nil];
+    NSURLRequest *setLike = [httpClient requestWithMethod:@"DELETE" path:urlString parameters:parameters];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:setLike];
+    
+    [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString *response = [operation responseString];
+        //NSLog(@"response: [%@]",response);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"error: %@", [operation error]);
+    }];
+    [operation start];
+    [operation release];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:animated];
+}
+
 - (void)viewDidUnload
 {
     _scroll = nil;
     choosenPost = nil;
+    location = nil;
+    token = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -93,6 +190,8 @@
     
     [_scroll release];
     [choosenPost release];
+    [location release];
+    [token release];
     [super dealloc];
 }
 

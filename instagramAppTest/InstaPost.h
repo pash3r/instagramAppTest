@@ -18,6 +18,7 @@
     NSString *locationName;
     NSDictionary *likes;
     NSDictionary *comments;
+    NSString *mediaID;
 }
 
 @property (retain, nonatomic) NSString *author;
@@ -28,5 +29,6 @@
 @property (retain, nonatomic) NSString *locationName;
 @property (retain, nonatomic) NSDictionary *likes;
 @property (retain, nonatomic) NSDictionary *comments;
+@property (retain, nonatomic) NSString *mediaID;
 
 @end

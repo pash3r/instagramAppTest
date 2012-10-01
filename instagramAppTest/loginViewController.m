@@ -20,7 +20,7 @@ static NSString *const tokenUrlString = @"https://api.instagram.com/oauth/access
 static NSString *const clientID = @"11fa4d658d2f449e87cd67368576d901";
 static NSString *const clientSecret = @"c8b74ecf12954616a1b508380bb7afc7";
 static NSString *const redirectUri = @"http://getresponse.com/";
-static NSString *const scope = @"basic";
+static NSString *const scope = @"basic+likes";
 
 
 
