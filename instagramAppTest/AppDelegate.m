@@ -20,6 +20,7 @@
 {
     [_window release];
     [_viewController release];
+    [_navContr release];
     [super dealloc];
 }
 

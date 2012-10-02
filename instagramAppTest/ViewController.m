@@ -107,8 +107,8 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.tableData count];
-    //return 5;
+    //return [self.tableData count];
+    return 7;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -177,7 +177,7 @@
     [photoView release];
     [authorLabel release];
     [likesCountLabel release];
-    //[commentsCountLabel release];
+    [commentsCountLabel release];
     
     return cell;
     
@@ -215,11 +215,11 @@
 {
     i = 0;
     
-    if ([self.userToken length] == 0){
+    //if ([self.userToken length] == 0){
         loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
         [loginVC setDelegate:self];
         [self presentModalViewController:loginVC animated:YES];
-    }
+    //}
     //NSLog(@"length: %u", [self.userToken length]);    
     self.navigationItem.title = @"My feed";
     

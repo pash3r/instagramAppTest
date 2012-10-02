@@ -20,6 +20,7 @@
 @synthesize choosenPost;
 @synthesize location;
 @synthesize token;
+@synthesize likedPeople;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -74,7 +75,6 @@
         [location setLineBreakMode:UILineBreakModeClip];
         location.text = choosenPost.locationName;
         [self.scroll addSubview:location];
-        [location release];
     }
     
     if (![[choosenPost.likes objectForKey:@"count"] isEqual:[NSNull null]]){
@@ -86,33 +86,39 @@
         }
         //NSLog(@"liked: %@", [likedUsersArr componentsJoinedByString:@", "]);
         if (location){
-            UILabel *likedPeople = [[UILabel alloc] initWithFrame:CGRectMake(7, 385, 300, 28)];
+            likedPeople = [[UILabel alloc] initWithFrame:CGRectMake(7, 385, 300, 29)];
             [likedPeople setFont:[UIFont fontWithName:@"Helvetica" size:12]];
             [likedPeople setNumberOfLines:3];
             [likedPeople setLineBreakMode:UILineBreakModeClip];
             NSString *likedUsersStr = [likedUsersArr componentsJoinedByString:@", "];
             likedPeople.text = [NSString stringWithFormat:@"Liked: %@", likedUsersStr];
             [self.scroll addSubview:likedPeople];
-            [likedPeople release];
         }else {
-            UILabel *likedPeople = [[UILabel alloc] initWithFrame:CGRectMake(7, 345, 300, 28)];
+            likedPeople = [[UILabel alloc] initWithFrame:CGRectMake(7, 345, 300, 29)];
             [likedPeople setFont:[UIFont fontWithName:@"Helvetica" size:12]];
             [likedPeople setNumberOfLines:3];
             [likedPeople setLineBreakMode:UILineBreakModeClip];
             NSString *likedUsersStr = [likedUsersArr componentsJoinedByString:@", "];
             likedPeople.text = [NSString stringWithFormat:@"Liked: %@", likedUsersStr];
             [self.scroll addSubview:likedPeople];
-            [likedPeople release];
         }
     }
+    //NSLog(@"%@", [[[choosenPost.comments objectForKey:@"data"] objectAtIndex:1] objectForKey:@"from"]);
     
-//    if (![[choosenPost.comments objectForKey:@"count"] isEqual:[NSNull null]]){
-//        
-//    }
+    if ([[choosenPost.comments objectForKey:@"data"] count] != 0){
+        if (location && likedPeople){
+            [self showComments:420 commentTextY:437];
+        } else if (location || likedPeople){
+            [self showComments:393 commentTextY:410];
+        } else {
+            [self showComments:342 commentTextY:359];
+        }
+        
+    }
     
     UIBarButtonItem *likeButton = [[UIBarButtonItem alloc] initWithTitle:@"Like" style:UIBarButtonItemStyleBordered target:self action:@selector(setLike)];
     self.navigationItem.rightBarButtonItem = likeButton;
-    UIBarButtonItem *dislikeButton = [[UIBarButtonItem alloc] initWithTitle:@"Don't like" style:UIBarButtonItemStyleBordered target:self action:@selector(setDislike)];
+    UIBarButtonItem *dislikeButton = [[UIBarButtonItem alloc] initWithTitle:@"Unlike" style:UIBarButtonItemStyleBordered target:self action:@selector(setDislike)];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:likeButton, dislikeButton, nil];
     
     [likeButton release];
@@ -128,6 +134,35 @@
     // Do any additional setup after loading the view from its nib.
 }
 
+-(void)showComments:(int)CommentAuthorY commentTextY:(int)CommentTextY{
+    
+    int commentAuthorY = CommentAuthorY, commentTextY = CommentTextY;
+    for (int i = 0; i <= [[choosenPost.comments objectForKey:@"data"] count] - 1; i++){
+        UILabel *commentAuthor = [[UILabel alloc] initWithFrame:CGRectMake(7, commentAuthorY, 300, 18)];
+        [commentAuthor setFont:[UIFont fontWithName:@"Helvetica" size:12]];
+        NSDictionary *comment = [[choosenPost.comments objectForKey:@"data"] objectAtIndex:i];
+        NSString *str = [NSString stringWithFormat:@"%@:", [[comment objectForKey:@"from"] objectForKey:@"username"]];
+        commentAuthor.text = str;
+        commentAuthorY = commentAuthorY + 18 + 37;
+        
+        UILabel *commentText = [[UILabel alloc] initWithFrame:CGRectMake(7, commentTextY, 300, 35)];
+        [commentText setFont:[UIFont fontWithName:@"Helvetica" size:11]];
+        [commentText setLineBreakMode:UILineBreakModeClip];
+        [commentText setNumberOfLines:3];
+        commentText.text = [comment objectForKey:@"text"];
+        commentTextY = commentTextY + 35 + 20;
+        
+        CGFloat newHeight = self.scroll.contentSize.height + 60;
+        [self.scroll setContentSize:CGSizeMake(self.view.frame.size.width, newHeight)];
+        [self.scroll addSubview:commentAuthor];
+        [self.scroll addSubview:commentText];
+        
+        [commentAuthor release];
+        [commentText release];
+    }
+
+}
+
 -(void)setLike{
     
     NSString *urlString = [NSString stringWithFormat:@"/v1/media/%@/likes", choosenPost.mediaID];
@@ -140,8 +175,8 @@
     [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString *response = [operation responseString];
-        //NSLog(@"response: [%@]",response);
+        //NSString *response = [operation responseString];
+        NSLog(@"Liked!");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"error: %@", [operation error]);
     }];
@@ -161,8 +196,8 @@
     [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString *response = [operation responseString];
-        //NSLog(@"response: [%@]",response);
+        //NSString *response = [operation responseString];
+        NSLog(@"Unliked");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"error: %@", [operation error]);
     }];
@@ -181,6 +216,7 @@
     choosenPost = nil;
     location = nil;
     token = nil;
+    likedPeople = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -192,6 +228,7 @@
     [choosenPost release];
     [location release];
     [token release];
+    [likedPeople release];
     [super dealloc];
 }
 
