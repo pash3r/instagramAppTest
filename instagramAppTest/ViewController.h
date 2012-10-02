@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "loginViewController.h"
+#import "PullTableView.h"
 
-@interface ViewController : UIViewController <UITableViewDelegate>{
+@interface ViewController : UIViewController <UITableViewDataSource, PullTableViewDelegate>{
     
-    IBOutlet UITableView *photoTable;
+    IBOutlet PullTableView *photoTable;
     //IBOutlet UILabel *label;
     //IBOutlet UIButton *goButton;
     NSString *userToken;
@@ -19,7 +20,7 @@
     int i;
 }
 
-@property (retain, nonatomic) IBOutlet UITableView *photoTable;
+@property (retain, nonatomic) IBOutlet PullTableView *photoTable;
 //@property (retain, nonatomic) IBOutlet UILabel *label;
 //@property (retain, nonatomic) IBOutlet UIButton *goButton;
 @property (retain, nonatomic) NSString *userToken;
@@ -28,6 +29,7 @@
 -(void)loginViewController:(loginViewController *)controller saveToken:(NSString *)text;
 
 -(void)reloadPosts;
+-(void)getDataWithParams:(NSDictionary *)params andMediaID:(NSString *)mediaID;
 
 
 @end

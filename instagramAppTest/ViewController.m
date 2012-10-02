@@ -14,6 +14,7 @@
 #import "InstaPost.h"
 #import "AFImageRequestOperation.h"
 #import "detailViewController.h"
+#import "PullTableView.h"
 
 @interface ViewController ()
 
@@ -26,6 +27,7 @@
 @synthesize userToken = _userToken;
 @synthesize tableData = _tableData;
 
+
 -(void)reloadPosts{
     
     NSURL *baseURL = [NSURL URLWithString:@"https://api.instagram.com/"];
@@ -33,8 +35,9 @@
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:baseURL];
     //[httpClient setDefaultHeader:@"Accept" value:@"text/json"];
     //NSLog(@"client: %@", httpClient);
-    
+    NSNumber *number = [NSNumber numberWithInt:8];
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            number, @"count",
                             self.userToken, @"access_token",
                             nil];
     //NSLog(@"params: %@", params);
@@ -51,12 +54,6 @@
         
         NSMutableArray *photosArray = [[NSMutableArray alloc] init];
         NSArray *photos = [JSON objectForKey:@"data"];
-        //NSLog(@"count == %@", [photos objectAtIndex:17]);
-        //NSLog(@"photos: %@", photos);
-//        NSDictionary *photo = [photos objectAtIndex:2];
-//        NSDictionary *images = [photo objectForKey:@"images"];
-//        NSDictionary *standart = [images objectForKey:@"standard_resolution"];
-//        NSLog(@"%@", [standart objectForKey:@"url"]);
         
         for (int j = 0; j <= [photos count] - 1; j++){
             InstaPost *post = [[InstaPost alloc] init];
@@ -107,14 +104,14 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //return [self.tableData count];
-    return 7;
+    return [self.tableData count];
+    //return 7;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return 160;
-}
+//-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    
+//    return 160;
+//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -206,10 +203,116 @@
     NSLog(@"token: %@", self.userToken);
 }
 
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
+//-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+//    
+//    
+//}
+
+- (void)pullTableViewDidTriggerRefresh:(PullTableView *)pullTableView
+{
+    [self performSelector:@selector(refreshTable) withObject:nil afterDelay:3.0f];
 }
+
+- (void)pullTableViewDidTriggerLoadMore:(PullTableView *)pullTableView
+{
+    [self performSelector:@selector(loadMoreDataToTable) withObject:nil afterDelay:3.0f];
+}
+
+- (void) refreshTable
+{
+    /*
+     
+     Code to actually refresh goes here.
+     
+     */
+    [self reloadPosts];
+    self.photoTable.pullLastRefreshDate = [NSDate date];
+    self.photoTable.pullTableIsRefreshing = NO;
+}
+
+- (void) loadMoreDataToTable
+{
+    /*
+     
+     Code to actually load more data goes here.
+     
+     */
+    NSURL *baseURL = [NSURL URLWithString:@"https://api.instagram.com/"];
+    
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:baseURL];
+    //[httpClient setDefaultHeader:@"Accept" value:@"text/json"];
+    //NSLog(@"client: %@", httpClient);
+    InstaPost *post = (InstaPost *)[self.tableData objectAtIndex:[self.tableData count] - 1];
+    
+    NSNumber *number = [NSNumber numberWithInt:8];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            number, @"count",
+                            post.mediaID, @"max_id",
+                            self.userToken, @"access_token",
+                            nil];
+    //NSLog(@"params: %@", params);
+    
+    NSURLRequest *request = [httpClient requestWithMethod:@"GET"
+                                                     path:@"/v1/users/self/feed"
+                                               parameters:params];
+    //NSLog(@"request == %@", request);
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON)
+                                         {
+                                             //NSLog(@"response == %@", JSON);
+                                             //NSLog(@"%@", [JSON objectForKey:@"data"]);
+                                             
+                                             NSMutableArray *photosArray = [[NSMutableArray alloc] init];
+                                             NSArray *photos = [JSON objectForKey:@"data"];
+                                             
+                                             for (int j = 0; j <= [photos count] - 1; j++){
+                                                 InstaPost *post = [[InstaPost alloc] init];
+                                                 NSDictionary *photoData = [photos objectAtIndex:j];
+                                                 NSDictionary *user = [photoData objectForKey:@"user"];
+                                                 post.author = [user objectForKey:@"full_name"];
+                                                 post.profilePicture = [user objectForKey:@"profile_picture"];
+                                                 if (![[photoData objectForKey:@"caption"] isEqual:[NSNull null]]){
+                                                     NSDictionary *caption = [photoData objectForKey:@"caption"];
+                                                     if (![[caption objectForKey:@"text"] isEqual:[NSNull null]]){
+                                                         post.photoName = [caption objectForKey:@"text"];
+                                                     }
+                                                 }
+                                                 NSDictionary *images = [photoData objectForKey:@"images"];
+                                                 NSDictionary *thumbnail = [images objectForKey:@"thumbnail"];
+                                                 post.miniImage = [thumbnail objectForKey:@"url"];
+                                                 NSDictionary *standartRes = [images objectForKey:@"standard_resolution"];
+                                                 post.maxiImage = [standartRes objectForKey:@"url"];
+                                                 if (![[photoData objectForKey:@"location"] isEqual:[NSNull null]]){
+                                                     NSDictionary *location = [photoData objectForKey:@"location"];
+                                                     if (![[location objectForKey:@"name"] isEqual:[NSNull null]]){
+                                                         post.locationName = [location objectForKey:@"name"];
+                                                     }
+                                                 }
+                                                 post.likes = [photoData objectForKey:@"likes"];
+                                                 post.comments = [photoData objectForKey:@"comments"];
+                                                 post.mediaID = [photoData objectForKey:@"id"];
+                                                 //NSLog(@"post: %@\n, %@\n, %@\n, %@\n, %@\n", post.author, post.profilePicture, post.miniImage, post.maxiImage, post.locationName);
+                                                 [photosArray addObject:post];
+                                             }
+                                             NSArray *tmpArr = [self.tableData arrayByAddingObjectsFromArray:photosArray];
+                                             self.tableData = tmpArr;
+                                             
+                                             [self.photoTable reloadData];
+                                         }
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON)
+                                         {
+                                             NSLog(@"error: %d", [response statusCode]);
+                                             NSLog(@"request == %@\n error == %@", request, error);
+                                             NSLog(@"fail");
+                                         }];
+    
+    [operation start];    
+    
+    NSLog(@"loading more data!!");
+    
+    self.photoTable.pullTableIsLoadingMore = NO;
+}
+
 
 - (void)viewDidLoad
 {
@@ -223,11 +326,14 @@
     //NSLog(@"length: %u", [self.userToken length]);    
     self.navigationItem.title = @"My feed";
     
+    self.photoTable.pullArrowImage = [UIImage imageNamed:@"blackArrow"];
+    self.photoTable.pullBackgroundColor = [UIColor lightGrayColor];
+    self.photoTable.pullTextColor = [UIColor blackColor];
+    self.photoTable.rowHeight = 160;
     
-    
-    UIBarButtonItem *reloadButton = [[UIBarButtonItem alloc] initWithTitle:@"Reload" style:UIBarButtonSystemItemRefresh target:self action:@selector(reloadPosts)];
-    [self.navigationItem setRightBarButtonItem:reloadButton];
-    [reloadButton release];
+//    UIBarButtonItem *reloadButton = [[UIBarButtonItem alloc] initWithTitle:@"Reload" style:UIBarButtonSystemItemRefresh target:self action:@selector(reloadPosts)];
+//    [self.navigationItem setRightBarButtonItem:reloadButton];
+//    [reloadButton release];
     
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
@@ -235,11 +341,18 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
-    if ([self.userToken length] != 0 && i == 0){
-        [self reloadPosts];
-        i++;
-    } //else [self.photoTable reloadData];
+//    if ([self.userToken length] != 0 && i == 0){
+//        [self reloadPosts];
+//        i++;
+//    } //else [self.photoTable reloadData];
     [super viewWillAppear:animated];
+    
+    //if(self.tableData != nil){
+        if(!self.photoTable.pullTableIsRefreshing) {
+            self.photoTable.pullTableIsRefreshing = YES;
+            [self performSelector:@selector(refreshTable) withObject:self.tableData afterDelay:3.0f];
+        //}
+    }
 }
 
 - (void)viewDidUnload
