@@ -15,7 +15,8 @@
 #import "AFImageRequestOperation.h"
 #import "detailViewController.h"
 #import "PullTableView.h"
-//#import "TokenEntity.h"
+#import "TokenEntity.h"
+#import "AppDelegate.h"
 
 @interface ViewController ()
 
@@ -28,6 +29,7 @@
 @synthesize userToken = _userToken;
 @synthesize tableData = _tableData;
 @synthesize context = _context;
+@synthesize model = _model;
 
 
 -(void)reloadPosts{
@@ -98,7 +100,7 @@
 
     [operation start];    
 
-    NSLog(@"click!!");
+    NSLog(@"loading!!");
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -320,11 +322,36 @@
 {
     i = 0;
     
-    //if ([self.userToken length] == 0){
+    if (self.context == nil && self.model == nil){
+        self.context = [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+        //self.context = context1;
+        
+        self.model = [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectModel];
+        //self.model = model1;
+    }
+    //NSLog(@"context: %@\n model: %@", self.context, self.model);
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *descr = [NSEntityDescription entityForName:@"TokenEntity" inManagedObjectContext:self.context];
+    [request setEntity:descr];
+    NSError *error = nil;
+    NSMutableArray *fetchResults = [[self.context executeFetchRequest:request error:&error] mutableCopy];
+    [request release];
+    [descr release];
+
+    if ([fetchResults count] != 0){
+        TokenEntity *tokenObj = [fetchResults objectAtIndex:0];
+        self.userToken = tokenObj.token;
+    }
+    NSLog(@"tokenObj: %@", self.userToken);
+    
+    if ([self.userToken length] == 0){
         loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
         [loginVC setDelegate:self];
+        loginVC.context = self.context;
+        loginVC.model = self.model;
         [self presentModalViewController:loginVC animated:YES];
-    //}
+    }
     //NSLog(@"length: %u", [self.userToken length]);    
     self.navigationItem.title = @"My feed";
     
@@ -355,6 +382,7 @@
             [self performSelector:@selector(refreshTable) withObject:self.tableData afterDelay:3.0f];
         //}
     }
+    NSLog(@"tokenObj1: %@", self.userToken);
 }
 
 - (void)viewDidUnload

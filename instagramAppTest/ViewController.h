@@ -20,6 +20,7 @@
     int i;
     
     NSManagedObjectContext *context;
+    NSManagedObjectModel *model;
 }
 
 @property (retain, nonatomic) IBOutlet PullTableView *photoTable;
@@ -29,6 +30,7 @@
 @property (retain, nonatomic) NSArray *tableData;
 
 @property (retain, nonatomic) NSManagedObjectContext *context;
+@property (retain, nonatomic) NSManagedObjectModel *model;
 
 -(void)loginViewController:(loginViewController *)controller saveToken:(NSString *)text;
 

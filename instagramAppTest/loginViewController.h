@@ -22,12 +22,18 @@
     //IBOutlet UIButton *okButton;
     id <loginViewDelegate> delegate;
     NSString *tokenStr;
+    
+    NSManagedObjectContext *context;
+    NSManagedObjectModel *model;
 }
 
 @property (strong, nonatomic) IBOutlet UIWebView *loginPage;
 //@property (retain, nonatomic) IBOutlet UIButton *okButton;
 @property (assign, nonatomic) id <loginViewDelegate> delegate;
 @property (retain, nonatomic) NSString *tokenStr;
+
+@property (retain, nonatomic) NSManagedObjectContext *context;
+@property (retain, nonatomic) NSManagedObjectModel *model;
 
 
 @end

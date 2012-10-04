@@ -42,12 +42,17 @@
     self.window.rootViewController = self.navContr;
     [self.window makeKeyAndVisible];
     
-    NSManagedObjectContext *context = [self managedObjectContext];
-    NSManagedObjectModel *model = [self managedObjectModel];
-    if (!context || !model)
+    __managedObjectContext = [self managedObjectContext];
+    __managedObjectModel = [self managedObjectModel];
+    if (!__managedObjectContext || !__managedObjectModel)
         NSLog(@"try to restart the app!");
     
-    self.viewController.context = context;
+    //NSLog(@"context: %@\n model: %@", __managedObjectContext, __managedObjectModel);
+    
+//    self.viewController.context = context;
+//    self.viewController.model = model;
+    
+    //NSLog(@"check: %@", self.managedObjectContext.persistentStoreCoordinator.managedObjectModel.entities);
     
     return YES;
 }

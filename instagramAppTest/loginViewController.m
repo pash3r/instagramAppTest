@@ -10,6 +10,7 @@
 #import "ViewController.h"
 #import "AFNetworking.h"
 #import "AFHTTPClient.h"
+#import "TokenEntity.h"
 
 @interface loginViewController ()
 
@@ -27,6 +28,8 @@ static NSString *const scope = @"basic+likes";
 @implementation loginViewController
 @synthesize loginPage, delegate;
 @synthesize tokenStr;
+
+@synthesize context, model;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -79,6 +82,11 @@ static NSString *const scope = @"basic+likes";
             tokenStr = token;
             //NSLog(@"token == %@", tokenStr);
             
+            TokenEntity *tokenEntity = (TokenEntity *)[NSEntityDescription insertNewObjectForEntityForName:@"TokenEntity" inManagedObjectContext:context];
+            [tokenEntity setToken:tokenStr];
+            
+            NSLog(@"entity.token: %@", tokenEntity.token);
+            
             if ([delegate respondsToSelector:@selector(loginViewController:saveToken:)] && tokenStr != nil) {
                 //NSLog(@"tokenStr == %@", tokenStr);
                 [delegate loginViewController:self saveToken:tokenStr];
@@ -106,6 +114,9 @@ static NSString *const scope = @"basic+likes";
 {
     loginPage = nil;
     tokenStr = nil;
+    
+    context = nil;
+    model = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -115,6 +126,9 @@ static NSString *const scope = @"basic+likes";
     
     [loginPage release];
     [tokenStr release];
+    
+    [context release];
+    [model release];
     [super dealloc];
 }
 
