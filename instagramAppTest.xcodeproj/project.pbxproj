@@ -43,6 +43,9 @@
 		BA96084D16135AB800C6751B /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BA96084216135AB700C6751B /* AFURLConnectionOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		BA96084E16135AB800C6751B /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BA96084416135AB700C6751B /* AFXMLRequestOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		BA96084F16135AB800C6751B /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = BA96084616135AB700C6751B /* UIImageView+AFNetworking.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		BA98EFFC161D72F200B7B815 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA98EFFB161D72F200B7B815 /* CoreData.framework */; };
+		BA98F000161D73FA00B7B815 /* AppData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BA98EFFE161D73FA00B7B815 /* AppData.xcdatamodeld */; };
+		BA98F003161D750700B7B815 /* TokenEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = BA98F002161D750700B7B815 /* TokenEntity.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,6 +108,10 @@
 		BA96084416135AB700C6751B /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFXMLRequestOperation.m; sourceTree = "<group>"; };
 		BA96084516135AB700C6751B /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		BA96084616135AB700C6751B /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
+		BA98EFFB161D72F200B7B815 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		BA98EFFF161D73FA00B7B815 /* AppData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppData.xcdatamodel; sourceTree = "<group>"; };
+		BA98F001161D750700B7B815 /* TokenEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TokenEntity.h; sourceTree = "<group>"; };
+		BA98F002161D750700B7B815 /* TokenEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TokenEntity.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +119,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA98EFFC161D72F200B7B815 /* CoreData.framework in Frameworks */,
 				BA185530161AF3990099AD24 /* QuartzCore.framework in Frameworks */,
 				BA96081216134BC700C6751B /* UIKit.framework in Frameworks */,
 				BA96081416134BC700C6751B /* Foundation.framework in Frameworks */,
@@ -191,6 +199,7 @@
 		BA96081016134BC700C6751B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BA98EFFB161D72F200B7B815 /* CoreData.framework */,
 				BA18552F161AF3990099AD24 /* QuartzCore.framework */,
 				BA96081116134BC700C6751B /* UIKit.framework */,
 				BA96081316134BC700C6751B /* Foundation.framework */,
@@ -202,6 +211,9 @@
 		BA96081716134BC700C6751B /* instagramAppTest */ = {
 			isa = PBXGroup;
 			children = (
+				BA98EFFE161D73FA00B7B815 /* AppData.xcdatamodeld */,
+				BA98F001161D750700B7B815 /* TokenEntity.h */,
+				BA98F002161D750700B7B815 /* TokenEntity.m */,
 				BA96082016134BC800C6751B /* AppDelegate.h */,
 				BA96082116134BC800C6751B /* AppDelegate.m */,
 				BA1629F81614735300CFC84D /* loginViewController.h */,
@@ -353,6 +365,8 @@
 				BA185523161AF1EB0099AD24 /* LoadMoreTableFooterView.m in Sources */,
 				BA185524161AF1EB0099AD24 /* MessageInterceptor.m in Sources */,
 				BA185525161AF1EB0099AD24 /* PullTableView.m in Sources */,
+				BA98F000161D73FA00B7B815 /* AppData.xcdatamodeld in Sources */,
+				BA98F003161D750700B7B815 /* TokenEntity.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,6 +479,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		BA98EFFE161D73FA00B7B815 /* AppData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				BA98EFFF161D73FA00B7B815 /* AppData.xcdatamodel */,
+			);
+			currentVersion = BA98EFFF161D73FA00B7B815 /* AppData.xcdatamodel */;
+			path = AppData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = BA96080416134BC700C6751B /* Project object */;
 }

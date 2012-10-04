@@ -18,6 +18,8 @@
     NSString *userToken;
     NSArray *tableData;
     int i;
+    
+    NSManagedObjectContext *context;
 }
 
 @property (retain, nonatomic) IBOutlet PullTableView *photoTable;
@@ -26,10 +28,12 @@
 @property (retain, nonatomic) NSString *userToken;
 @property (retain, nonatomic) NSArray *tableData;
 
+@property (retain, nonatomic) NSManagedObjectContext *context;
+
 -(void)loginViewController:(loginViewController *)controller saveToken:(NSString *)text;
 
 -(void)reloadPosts;
--(void)getDataWithParams:(NSDictionary *)params andMediaID:(NSString *)mediaID;
+//-(void)getDataWithParams:(NSDictionary *)params andMediaID:(NSString *)mediaID;
 
 
 @end

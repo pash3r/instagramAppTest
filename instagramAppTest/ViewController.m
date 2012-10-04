@@ -15,6 +15,7 @@
 #import "AFImageRequestOperation.h"
 #import "detailViewController.h"
 #import "PullTableView.h"
+//#import "TokenEntity.h"
 
 @interface ViewController ()
 
@@ -26,6 +27,7 @@
 //@synthesize goButton;
 @synthesize userToken = _userToken;
 @synthesize tableData = _tableData;
+@synthesize context = _context;
 
 
 -(void)reloadPosts{
@@ -191,7 +193,7 @@
     
         [self.navigationController pushViewController:detailView animated:YES];
         [detailView release];
-        NSLog(@"height: %f", self.photoTable.frame.size.height);
+        //NSLog(@"height: %f", self.photoTable.frame.size.height);
 
     }
 }
@@ -360,6 +362,7 @@
     _photoTable = nil;
     _userToken = nil;
     _tableData = nil;
+    _context = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -369,6 +372,7 @@
     [_photoTable release];
     [_userToken release];
     [_tableData release];
+    [_context release];
     [super dealloc];
 }
 
