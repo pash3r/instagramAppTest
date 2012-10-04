@@ -350,6 +350,7 @@
         [loginVC setDelegate:self];
         loginVC.context = self.context;
         loginVC.model = self.model;
+        
         [self presentModalViewController:loginVC animated:YES];
     }
     //NSLog(@"length: %u", [self.userToken length]);    
