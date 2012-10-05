@@ -10,7 +10,6 @@
 
 #import "ViewController.h"
 #import <CoreData/CoreData.h>
-#import "SDURLCache.h"
 
 @implementation AppDelegate
 
@@ -35,10 +34,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    SDURLCache *cache = [[SDURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024 diskCapacity:24 * 1024 * 1024 diskPath:[SDURLCache defaultCachePath]];
-    [NSURLCache setSharedURLCache:cache];
-    [cache release];
-    
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
     

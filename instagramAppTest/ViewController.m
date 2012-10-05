@@ -17,6 +17,7 @@
 #import "PullTableView.h"
 #import "AppDelegate.h"
 #import "UIImageView+AFNetworking.h"
+#import "SDURLCache.h"
 
 @interface ViewController ()
 
@@ -317,6 +318,10 @@
 - (void)viewDidLoad
 {
     i = 0;
+    
+    SDURLCache *cache = [[SDURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024 diskCapacity:24 * 1024 * 1024 diskPath:[SDURLCache defaultCachePath]];
+    [NSURLCache setSharedURLCache:cache];
+    [cache release];
     
     if (self.context == nil && self.model == nil){
         self.context = [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
