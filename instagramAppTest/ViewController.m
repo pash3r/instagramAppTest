@@ -15,8 +15,8 @@
 #import "AFImageRequestOperation.h"
 #import "detailViewController.h"
 #import "PullTableView.h"
-#import "TokenEntity.h"
 #import "AppDelegate.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface ViewController ()
 
@@ -124,8 +124,6 @@
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        //UILabel *userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 311, 150, 20)];
     }
     // Configure the cell...
     InstaPost *postt = (InstaPost *)[self.tableData objectAtIndex:indexPath.row];
@@ -136,7 +134,7 @@
     AFImageRequestOperation *imageRequest = [AFImageRequestOperation imageRequestOperationWithRequest:request imageProcessingBlock:^UIImage *(UIImage *image){
         return image;
     }success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image){
-        [photoView setImage:image];
+        [photoView setImageWithURL:[NSURL URLWithString:postt.miniImage] placeholderImage:nil];
     }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
         NSLog(@"Error getting photo");
     }];
@@ -203,14 +201,12 @@
 -(void)loginViewController:(loginViewController *)controller saveToken:(NSString *)text{
     
     //self.label.text = text;
-    self.userToken = text;
-    NSLog(@"token: %@", self.userToken);
+//    userDefaults = [NSUserDefaults standardUserDefaults];
+//    [userDefaults setObject:text forKey:@"token"];
+//    [userDefaults synchronize];
+//    self.userToken = text;
+    //NSLog(@"token: %@", self.userToken);
 }
-
-//-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-//    
-//    
-//}
 
 - (void)pullTableViewDidTriggerRefresh:(PullTableView *)pullTableView
 {
@@ -324,35 +320,11 @@
     
     if (self.context == nil && self.model == nil){
         self.context = [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
-        //self.context = context1;
-        
         self.model = [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectModel];
-        //self.model = model1;
     }
     //NSLog(@"context: %@\n model: %@", self.context, self.model);
     
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *descr = [NSEntityDescription entityForName:@"TokenEntity" inManagedObjectContext:self.context];
-    [request setEntity:descr];
-    NSError *error = nil;
-    NSMutableArray *fetchResults = [[self.context executeFetchRequest:request error:&error] mutableCopy];
-    [request release];
-    [descr release];
-
-    if ([fetchResults count] != 0){
-        TokenEntity *tokenObj = [fetchResults objectAtIndex:0];
-        self.userToken = tokenObj.token;
-    }
-    NSLog(@"tokenObj: %@", self.userToken);
     
-    if ([self.userToken length] == 0){
-        loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
-        [loginVC setDelegate:self];
-        loginVC.context = self.context;
-        loginVC.model = self.model;
-        
-        [self presentModalViewController:loginVC animated:YES];
-    }
     //NSLog(@"length: %u", [self.userToken length]);    
     self.navigationItem.title = @"My feed";
     
@@ -361,21 +333,43 @@
     self.photoTable.pullTextColor = [UIColor blackColor];
     self.photoTable.rowHeight = 160;
     
-//    UIBarButtonItem *reloadButton = [[UIBarButtonItem alloc] initWithTitle:@"Reload" style:UIBarButtonSystemItemRefresh target:self action:@selector(reloadPosts)];
-//    [self.navigationItem setRightBarButtonItem:reloadButton];
-//    [reloadButton release];
-    
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+//    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+//    NSEntityDescription *descr = [NSEntityDescription entityForName:@"TokenEntity" inManagedObjectContext:self.context];
+//    [request setEntity:descr];
+//    NSError *error = nil;
+//    NSMutableArray *fetchResults = [[self.context executeFetchRequest:request error:&error] mutableCopy];
+//    [request release];
+//    [descr release];
+//    NSLog(@"fetchResults: %@", fetchResults);
+//    
+//    if ([fetchResults count] != 0){
+//        TokenEntity *tokenObj = [fetchResults objectAtIndex:0];
+//       // NSLog(@"results: %@", tokenObj);
+//        
+//        self.userToken = tokenObj.token;
+//    }
+//    NSLog(@"self.userToken: %@", self.userToken);
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    self.userToken = [userDefaults stringForKey:@"token"];
+    
+    if ([self.userToken length] == 0){
+        loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
+        [loginVC setDelegate:self];
+//        loginVC.context = self.context;
+//        loginVC.model = self.model;
+        [self presentModalViewController:loginVC animated:YES];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     
-//    if ([self.userToken length] != 0 && i == 0){
-//        [self reloadPosts];
-//        i++;
-//    } //else [self.photoTable reloadData];
     [super viewWillAppear:animated];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    self.userToken = [userDefaults objectForKey:@"token"];
+    NSLog(@"userToken: %@", self.userToken);
     
     //if(self.tableData != nil){
         if(!self.photoTable.pullTableIsRefreshing) {
@@ -383,7 +377,6 @@
             [self performSelector:@selector(refreshTable) withObject:self.tableData afterDelay:3.0f];
         //}
     }
-    NSLog(@"tokenObj1: %@", self.userToken);
 }
 
 - (void)viewDidUnload

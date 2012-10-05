@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BA150D63161ED18B00F6E4F5 /* SDURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = BA150D61161ED18B00F6E4F5 /* SDURLCache.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		BA1629F6161472DF00CFC84D /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = BA1629F5161472DF00CFC84D /* JSONKit.m */; };
 		BA1629FB1614735300CFC84D /* loginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA1629F91614735300CFC84D /* loginViewController.m */; };
 		BA1629FC1614735300CFC84D /* loginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA1629FA1614735300CFC84D /* loginViewController.xib */; };
@@ -44,11 +45,13 @@
 		BA96084E16135AB800C6751B /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BA96084416135AB700C6751B /* AFXMLRequestOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		BA96084F16135AB800C6751B /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = BA96084616135AB700C6751B /* UIImageView+AFNetworking.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		BA98EFFC161D72F200B7B815 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA98EFFB161D72F200B7B815 /* CoreData.framework */; };
-		BA98F000161D73FA00B7B815 /* AppData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BA98EFFE161D73FA00B7B815 /* AppData.xcdatamodeld */; };
-		BA98F003161D750700B7B815 /* TokenEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = BA98F002161D750700B7B815 /* TokenEntity.m */; };
+		BA98F006161DD7E100B7B815 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BA98F004161DD7E100B7B815 /* Model.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BA150D60161ED18B00F6E4F5 /* SDURLCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDURLCache.h; sourceTree = "<group>"; };
+		BA150D61161ED18B00F6E4F5 /* SDURLCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDURLCache.m; sourceTree = "<group>"; };
+		BA150D62161ED18B00F6E4F5 /* SDURLCache_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDURLCache_Prefix.pch; sourceTree = "<group>"; };
 		BA1629F4161472DF00CFC84D /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		BA1629F5161472DF00CFC84D /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		BA1629F81614735300CFC84D /* loginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = loginViewController.h; sourceTree = "<group>"; };
@@ -109,9 +112,7 @@
 		BA96084516135AB700C6751B /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		BA96084616135AB700C6751B /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
 		BA98EFFB161D72F200B7B815 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		BA98EFFF161D73FA00B7B815 /* AppData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppData.xcdatamodel; sourceTree = "<group>"; };
-		BA98F001161D750700B7B815 /* TokenEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TokenEntity.h; sourceTree = "<group>"; };
-		BA98F002161D750700B7B815 /* TokenEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TokenEntity.m; sourceTree = "<group>"; };
+		BA98F005161DD7E100B7B815 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +131,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BA150D5F161ED18B00F6E4F5 /* SDURLCache */ = {
+			isa = PBXGroup;
+			children = (
+				BA150D60161ED18B00F6E4F5 /* SDURLCache.h */,
+				BA150D61161ED18B00F6E4F5 /* SDURLCache.m */,
+				BA150D62161ED18B00F6E4F5 /* SDURLCache_Prefix.pch */,
+			);
+			path = SDURLCache;
+			sourceTree = "<group>";
+		};
 		BA1629F3161472DF00CFC84D /* JSONkit */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,6 +193,7 @@
 		BA96080216134BC700C6751B = {
 			isa = PBXGroup;
 			children = (
+				BA98F004161DD7E100B7B815 /* Model.xcdatamodeld */,
 				BA96081716134BC700C6751B /* instagramAppTest */,
 				BA96081016134BC700C6751B /* Frameworks */,
 				BA96080E16134BC700C6751B /* Products */,
@@ -211,9 +223,6 @@
 		BA96081716134BC700C6751B /* instagramAppTest */ = {
 			isa = PBXGroup;
 			children = (
-				BA98EFFE161D73FA00B7B815 /* AppData.xcdatamodeld */,
-				BA98F001161D750700B7B815 /* TokenEntity.h */,
-				BA98F002161D750700B7B815 /* TokenEntity.m */,
 				BA96082016134BC800C6751B /* AppDelegate.h */,
 				BA96082116134BC800C6751B /* AppDelegate.m */,
 				BA1629F81614735300CFC84D /* loginViewController.h */,
@@ -227,6 +236,7 @@
 				BA96082E161356FE00C6751B /* detailViewController.h */,
 				BA96082F161356FE00C6751B /* detailViewController.m */,
 				BA960830161356FE00C6751B /* detailViewController.xib */,
+				BA150D5F161ED18B00F6E4F5 /* SDURLCache */,
 				BA18550F161AF1EB0099AD24 /* EGOTableViewPullRefresh */,
 				BA1629F3161472DF00CFC84D /* JSONkit */,
 				BA96083316135AB700C6751B /* AFNetworking */,
@@ -365,8 +375,8 @@
 				BA185523161AF1EB0099AD24 /* LoadMoreTableFooterView.m in Sources */,
 				BA185524161AF1EB0099AD24 /* MessageInterceptor.m in Sources */,
 				BA185525161AF1EB0099AD24 /* PullTableView.m in Sources */,
-				BA98F000161D73FA00B7B815 /* AppData.xcdatamodeld in Sources */,
-				BA98F003161D750700B7B815 /* TokenEntity.m in Sources */,
+				BA98F006161DD7E100B7B815 /* Model.xcdatamodeld in Sources */,
+				BA150D63161ED18B00F6E4F5 /* SDURLCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,13 +491,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		BA98EFFE161D73FA00B7B815 /* AppData.xcdatamodeld */ = {
+		BA98F004161DD7E100B7B815 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				BA98EFFF161D73FA00B7B815 /* AppData.xcdatamodel */,
+				BA98F005161DD7E100B7B815 /* Model.xcdatamodel */,
 			);
-			currentVersion = BA98EFFF161D73FA00B7B815 /* AppData.xcdatamodel */;
-			path = AppData.xcdatamodeld;
+			currentVersion = BA98F005161DD7E100B7B815 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

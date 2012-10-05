@@ -18,6 +18,7 @@
     NSString *userToken;
     NSArray *tableData;
     int i;
+    //NSUserDefaults *userDefaults;
     
     NSManagedObjectContext *context;
     NSManagedObjectModel *model;
@@ -28,6 +29,7 @@
 //@property (retain, nonatomic) IBOutlet UIButton *goButton;
 @property (retain, nonatomic) NSString *userToken;
 @property (retain, nonatomic) NSArray *tableData;
+//@property (retain, nonatomic) NSUserDefaults *userDefaults;
 
 @property (retain, nonatomic) NSManagedObjectContext *context;
 @property (retain, nonatomic) NSManagedObjectModel *model;

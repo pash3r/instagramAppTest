@@ -10,7 +10,6 @@
 #import "ViewController.h"
 #import "AFNetworking.h"
 #import "AFHTTPClient.h"
-#import "TokenEntity.h"
 
 @interface loginViewController ()
 
@@ -80,29 +79,33 @@ static NSString *const scope = @"basic+likes";
             if (endRange.location != NSNotFound)
                 token = [token substringToIndex: endRange.location];
             tokenStr = token;
-            //NSLog(@"token == %@", tokenStr);
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:tokenStr forKey:@"token"];
+            [userDefaults synchronize];
+            NSLog(@"token == %@", [userDefaults objectForKey:@"token"]);
             
-            TokenEntity *tokenEntity = (TokenEntity *)[NSEntityDescription insertNewObjectForEntityForName:@"TokenEntity" inManagedObjectContext:context];
-            [tokenEntity setToken:tokenStr];
-            
-            NSLog(@"entity.token: %@", tokenEntity.token);
-            
-            if ([delegate respondsToSelector:@selector(loginViewController:saveToken:)] && tokenStr != nil) {
+                if ([delegate respondsToSelector:@selector(loginViewController:saveToken:)] && tokenStr != nil) {
                 //NSLog(@"tokenStr == %@", tokenStr);
                 [delegate loginViewController:self saveToken:tokenStr];
                 NSLog(@"delegate!!!!!");
-                [self dismissModalViewControllerAnimated:YES];
-                }
-        }
-        }
-    //}
-    
-    return YES;
-}
+                
+//            TokenEntity *tokenEntity = (TokenEntity *)[NSEntityDescription insertNewObjectForEntityForName:@"TokenEntity" inManagedObjectContext:context];
+//            [tokenEntity setToken:tokenStr];
+//            NSError *error = nil;
+            //[context save:&error];
+           
+//            if (![context save:&error]) {
+//                NSLog(@"ERROR!!!");
+//            }
+            
+            //NSLog(@"context: %@\n model: %@", context, model);
 
--(void)webViewDidFinishLoad:(UIWebView *)webView{
-    
-    //[self dismissModalViewControllerAnimated:YES];
+            [self dismissModalViewControllerAnimated:YES];
+            }
+        }
+    }
+    //}
+    return YES;
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
