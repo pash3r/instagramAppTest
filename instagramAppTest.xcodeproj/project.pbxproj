@@ -7,22 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		63B2303B1622AE4D00551494 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B2302B1622AE4D00551494 /* EGORefreshTableHeaderView.m */; };
+		63B2303C1622AE4D00551494 /* LoadMoreTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B2302D1622AE4D00551494 /* LoadMoreTableFooterView.m */; };
+		63B2303D1622AE4D00551494 /* MessageInterceptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B2302F1622AE4D00551494 /* MessageInterceptor.m */; };
+		63B2303E1622AE4D00551494 /* PullTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B230311622AE4D00551494 /* PullTableView.m */; };
+		63B2303F1622AE4D00551494 /* blackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 63B230331622AE4D00551494 /* blackArrow.png */; };
+		63B230401622AE4D00551494 /* blackArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63B230341622AE4D00551494 /* blackArrow@2x.png */; };
+		63B230411622AE4D00551494 /* blueArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 63B230351622AE4D00551494 /* blueArrow.png */; };
+		63B230421622AE4D00551494 /* blueArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63B230361622AE4D00551494 /* blueArrow@2x.png */; };
+		63B230431622AE4D00551494 /* grayArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 63B230371622AE4D00551494 /* grayArrow.png */; };
+		63B230441622AE4D00551494 /* grayArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63B230381622AE4D00551494 /* grayArrow@2x.png */; };
+		63B230451622AE4D00551494 /* whiteArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 63B230391622AE4D00551494 /* whiteArrow.png */; };
+		63B230461622AE4D00551494 /* whiteArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63B2303A1622AE4D00551494 /* whiteArrow@2x.png */; };
+		63B230481622AEC600551494 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 63B230471622AEC600551494 /* Default-568h@2x.png */; };
 		BA1629F6161472DF00CFC84D /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = BA1629F5161472DF00CFC84D /* JSONKit.m */; };
 		BA1629FB1614735300CFC84D /* loginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA1629F91614735300CFC84D /* loginViewController.m */; };
 		BA1629FC1614735300CFC84D /* loginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA1629FA1614735300CFC84D /* loginViewController.xib */; };
 		BA16B1AD161744C300F8D733 /* InstaPost.m in Sources */ = {isa = PBXBuildFile; fileRef = BA16B1AC161744C300F8D733 /* InstaPost.m */; };
-		BA185522161AF1EB0099AD24 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA185512161AF1EB0099AD24 /* EGORefreshTableHeaderView.m */; };
-		BA185523161AF1EB0099AD24 /* LoadMoreTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA185514161AF1EB0099AD24 /* LoadMoreTableFooterView.m */; };
-		BA185524161AF1EB0099AD24 /* MessageInterceptor.m in Sources */ = {isa = PBXBuildFile; fileRef = BA185516161AF1EB0099AD24 /* MessageInterceptor.m */; };
-		BA185525161AF1EB0099AD24 /* PullTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA185518161AF1EB0099AD24 /* PullTableView.m */; };
-		BA185526161AF1EB0099AD24 /* blackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = BA18551A161AF1EB0099AD24 /* blackArrow.png */; };
-		BA185527161AF1EB0099AD24 /* blackArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA18551B161AF1EB0099AD24 /* blackArrow@2x.png */; };
-		BA185528161AF1EB0099AD24 /* blueArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = BA18551C161AF1EB0099AD24 /* blueArrow.png */; };
-		BA185529161AF1EB0099AD24 /* blueArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA18551D161AF1EB0099AD24 /* blueArrow@2x.png */; };
-		BA18552A161AF1EB0099AD24 /* grayArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = BA18551E161AF1EB0099AD24 /* grayArrow.png */; };
-		BA18552B161AF1EB0099AD24 /* grayArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA18551F161AF1EB0099AD24 /* grayArrow@2x.png */; };
-		BA18552C161AF1EB0099AD24 /* whiteArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = BA185520161AF1EB0099AD24 /* whiteArrow.png */; };
-		BA18552D161AF1EB0099AD24 /* whiteArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA185521161AF1EB0099AD24 /* whiteArrow@2x.png */; };
 		BA185530161AF3990099AD24 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA18552F161AF3990099AD24 /* QuartzCore.framework */; };
 		BA96081216134BC700C6751B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA96081116134BC700C6751B /* UIKit.framework */; };
 		BA96081416134BC700C6751B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA96081316134BC700C6751B /* Foundation.framework */; };
@@ -49,6 +50,23 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		63B2302A1622AE4D00551494 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
+		63B2302B1622AE4D00551494 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
+		63B2302C1622AE4D00551494 /* LoadMoreTableFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadMoreTableFooterView.h; sourceTree = "<group>"; };
+		63B2302D1622AE4D00551494 /* LoadMoreTableFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadMoreTableFooterView.m; sourceTree = "<group>"; };
+		63B2302E1622AE4D00551494 /* MessageInterceptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageInterceptor.h; sourceTree = "<group>"; };
+		63B2302F1622AE4D00551494 /* MessageInterceptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageInterceptor.m; sourceTree = "<group>"; };
+		63B230301622AE4D00551494 /* PullTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullTableView.h; sourceTree = "<group>"; };
+		63B230311622AE4D00551494 /* PullTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullTableView.m; sourceTree = "<group>"; };
+		63B230331622AE4D00551494 /* blackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackArrow.png; sourceTree = "<group>"; };
+		63B230341622AE4D00551494 /* blackArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blackArrow@2x.png"; sourceTree = "<group>"; };
+		63B230351622AE4D00551494 /* blueArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueArrow.png; sourceTree = "<group>"; };
+		63B230361622AE4D00551494 /* blueArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blueArrow@2x.png"; sourceTree = "<group>"; };
+		63B230371622AE4D00551494 /* grayArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayArrow.png; sourceTree = "<group>"; };
+		63B230381622AE4D00551494 /* grayArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grayArrow@2x.png"; sourceTree = "<group>"; };
+		63B230391622AE4D00551494 /* whiteArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteArrow.png; sourceTree = "<group>"; };
+		63B2303A1622AE4D00551494 /* whiteArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteArrow@2x.png"; sourceTree = "<group>"; };
+		63B230471622AEC600551494 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		BA1629F4161472DF00CFC84D /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		BA1629F5161472DF00CFC84D /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		BA1629F81614735300CFC84D /* loginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = loginViewController.h; sourceTree = "<group>"; };
@@ -56,22 +74,6 @@
 		BA1629FA1614735300CFC84D /* loginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = loginViewController.xib; sourceTree = "<group>"; };
 		BA16B1AB161744C300F8D733 /* InstaPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstaPost.h; sourceTree = "<group>"; };
 		BA16B1AC161744C300F8D733 /* InstaPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstaPost.m; sourceTree = "<group>"; };
-		BA185511161AF1EB0099AD24 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
-		BA185512161AF1EB0099AD24 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
-		BA185513161AF1EB0099AD24 /* LoadMoreTableFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadMoreTableFooterView.h; sourceTree = "<group>"; };
-		BA185514161AF1EB0099AD24 /* LoadMoreTableFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadMoreTableFooterView.m; sourceTree = "<group>"; };
-		BA185515161AF1EB0099AD24 /* MessageInterceptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageInterceptor.h; sourceTree = "<group>"; };
-		BA185516161AF1EB0099AD24 /* MessageInterceptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageInterceptor.m; sourceTree = "<group>"; };
-		BA185517161AF1EB0099AD24 /* PullTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullTableView.h; sourceTree = "<group>"; };
-		BA185518161AF1EB0099AD24 /* PullTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullTableView.m; sourceTree = "<group>"; };
-		BA18551A161AF1EB0099AD24 /* blackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackArrow.png; sourceTree = "<group>"; };
-		BA18551B161AF1EB0099AD24 /* blackArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blackArrow@2x.png"; sourceTree = "<group>"; };
-		BA18551C161AF1EB0099AD24 /* blueArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueArrow.png; sourceTree = "<group>"; };
-		BA18551D161AF1EB0099AD24 /* blueArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blueArrow@2x.png"; sourceTree = "<group>"; };
-		BA18551E161AF1EB0099AD24 /* grayArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayArrow.png; sourceTree = "<group>"; };
-		BA18551F161AF1EB0099AD24 /* grayArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grayArrow@2x.png"; sourceTree = "<group>"; };
-		BA185520161AF1EB0099AD24 /* whiteArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteArrow.png; sourceTree = "<group>"; };
-		BA185521161AF1EB0099AD24 /* whiteArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteArrow@2x.png"; sourceTree = "<group>"; };
 		BA18552F161AF3990099AD24 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BA96080D16134BC700C6751B /* instagramAppTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = instagramAppTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA96081116134BC700C6751B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -130,6 +132,45 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		63B230281622AE4D00551494 /* EGOTableViewPullRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				63B230291622AE4D00551494 /* Classes */,
+				63B230321622AE4D00551494 /* Resources */,
+			);
+			path = EGOTableViewPullRefresh;
+			sourceTree = "<group>";
+		};
+		63B230291622AE4D00551494 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				63B2302A1622AE4D00551494 /* EGORefreshTableHeaderView.h */,
+				63B2302B1622AE4D00551494 /* EGORefreshTableHeaderView.m */,
+				63B2302C1622AE4D00551494 /* LoadMoreTableFooterView.h */,
+				63B2302D1622AE4D00551494 /* LoadMoreTableFooterView.m */,
+				63B2302E1622AE4D00551494 /* MessageInterceptor.h */,
+				63B2302F1622AE4D00551494 /* MessageInterceptor.m */,
+				63B230301622AE4D00551494 /* PullTableView.h */,
+				63B230311622AE4D00551494 /* PullTableView.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		63B230321622AE4D00551494 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				63B230331622AE4D00551494 /* blackArrow.png */,
+				63B230341622AE4D00551494 /* blackArrow@2x.png */,
+				63B230351622AE4D00551494 /* blueArrow.png */,
+				63B230361622AE4D00551494 /* blueArrow@2x.png */,
+				63B230371622AE4D00551494 /* grayArrow.png */,
+				63B230381622AE4D00551494 /* grayArrow@2x.png */,
+				63B230391622AE4D00551494 /* whiteArrow.png */,
+				63B2303A1622AE4D00551494 /* whiteArrow@2x.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		BA1629F3161472DF00CFC84D /* JSONkit */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,46 +178,6 @@
 				BA1629F5161472DF00CFC84D /* JSONKit.m */,
 			);
 			path = JSONkit;
-			sourceTree = "<group>";
-		};
-		BA18550F161AF1EB0099AD24 /* EGOTableViewPullRefresh */ = {
-			isa = PBXGroup;
-			children = (
-				BA185510161AF1EB0099AD24 /* Classes */,
-				BA185519161AF1EB0099AD24 /* Resources */,
-			);
-			name = EGOTableViewPullRefresh;
-			path = "../../emreberge-EGOTableViewPullRefresh-ae0eb15/EGOTableViewPullRefresh";
-			sourceTree = "<group>";
-		};
-		BA185510161AF1EB0099AD24 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				BA185511161AF1EB0099AD24 /* EGORefreshTableHeaderView.h */,
-				BA185512161AF1EB0099AD24 /* EGORefreshTableHeaderView.m */,
-				BA185513161AF1EB0099AD24 /* LoadMoreTableFooterView.h */,
-				BA185514161AF1EB0099AD24 /* LoadMoreTableFooterView.m */,
-				BA185515161AF1EB0099AD24 /* MessageInterceptor.h */,
-				BA185516161AF1EB0099AD24 /* MessageInterceptor.m */,
-				BA185517161AF1EB0099AD24 /* PullTableView.h */,
-				BA185518161AF1EB0099AD24 /* PullTableView.m */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		BA185519161AF1EB0099AD24 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				BA18551A161AF1EB0099AD24 /* blackArrow.png */,
-				BA18551B161AF1EB0099AD24 /* blackArrow@2x.png */,
-				BA18551C161AF1EB0099AD24 /* blueArrow.png */,
-				BA18551D161AF1EB0099AD24 /* blueArrow@2x.png */,
-				BA18551E161AF1EB0099AD24 /* grayArrow.png */,
-				BA18551F161AF1EB0099AD24 /* grayArrow@2x.png */,
-				BA185520161AF1EB0099AD24 /* whiteArrow.png */,
-				BA185521161AF1EB0099AD24 /* whiteArrow@2x.png */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		BA96080216134BC700C6751B = {
@@ -227,7 +228,7 @@
 				BA96082E161356FE00C6751B /* detailViewController.h */,
 				BA96082F161356FE00C6751B /* detailViewController.m */,
 				BA960830161356FE00C6751B /* detailViewController.xib */,
-				BA18550F161AF1EB0099AD24 /* EGOTableViewPullRefresh */,
+				63B230281622AE4D00551494 /* EGOTableViewPullRefresh */,
 				BA1629F3161472DF00CFC84D /* JSONkit */,
 				BA96083316135AB700C6751B /* AFNetworking */,
 				BA96081816134BC700C6751B /* Supporting Files */,
@@ -238,6 +239,7 @@
 		BA96081816134BC700C6751B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				63B230471622AEC600551494 /* Default-568h@2x.png */,
 				BA96081916134BC700C6751B /* instagramAppTest-Info.plist */,
 				BA96081A16134BC700C6751B /* InfoPlist.strings */,
 				BA96081D16134BC700C6751B /* main.m */,
@@ -327,14 +329,15 @@
 				BA96082816134BC800C6751B /* ViewController.xib in Resources */,
 				BA960832161356FE00C6751B /* detailViewController.xib in Resources */,
 				BA1629FC1614735300CFC84D /* loginViewController.xib in Resources */,
-				BA185526161AF1EB0099AD24 /* blackArrow.png in Resources */,
-				BA185527161AF1EB0099AD24 /* blackArrow@2x.png in Resources */,
-				BA185528161AF1EB0099AD24 /* blueArrow.png in Resources */,
-				BA185529161AF1EB0099AD24 /* blueArrow@2x.png in Resources */,
-				BA18552A161AF1EB0099AD24 /* grayArrow.png in Resources */,
-				BA18552B161AF1EB0099AD24 /* grayArrow@2x.png in Resources */,
-				BA18552C161AF1EB0099AD24 /* whiteArrow.png in Resources */,
-				BA18552D161AF1EB0099AD24 /* whiteArrow@2x.png in Resources */,
+				63B2303F1622AE4D00551494 /* blackArrow.png in Resources */,
+				63B230401622AE4D00551494 /* blackArrow@2x.png in Resources */,
+				63B230411622AE4D00551494 /* blueArrow.png in Resources */,
+				63B230421622AE4D00551494 /* blueArrow@2x.png in Resources */,
+				63B230431622AE4D00551494 /* grayArrow.png in Resources */,
+				63B230441622AE4D00551494 /* grayArrow@2x.png in Resources */,
+				63B230451622AE4D00551494 /* whiteArrow.png in Resources */,
+				63B230461622AE4D00551494 /* whiteArrow@2x.png in Resources */,
+				63B230481622AEC600551494 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,12 +364,12 @@
 				BA1629F6161472DF00CFC84D /* JSONKit.m in Sources */,
 				BA1629FB1614735300CFC84D /* loginViewController.m in Sources */,
 				BA16B1AD161744C300F8D733 /* InstaPost.m in Sources */,
-				BA185522161AF1EB0099AD24 /* EGORefreshTableHeaderView.m in Sources */,
-				BA185523161AF1EB0099AD24 /* LoadMoreTableFooterView.m in Sources */,
-				BA185524161AF1EB0099AD24 /* MessageInterceptor.m in Sources */,
-				BA185525161AF1EB0099AD24 /* PullTableView.m in Sources */,
 				BA98F000161D73FA00B7B815 /* AppData.xcdatamodeld in Sources */,
 				BA98F003161D750700B7B815 /* TokenEntity.m in Sources */,
+				63B2303B1622AE4D00551494 /* EGORefreshTableHeaderView.m in Sources */,
+				63B2303C1622AE4D00551494 /* LoadMoreTableFooterView.m in Sources */,
+				63B2303D1622AE4D00551494 /* MessageInterceptor.m in Sources */,
+				63B2303E1622AE4D00551494 /* PullTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
